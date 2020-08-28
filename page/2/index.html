@@ -102,6 +102,53 @@
         
           <section id="main">
   
+    <article id="post-nginx-variables"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2019/10/15/nginx-variables/">nginx-variables</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2019/10/15/nginx-variables/" class="article-date">
+	  <time datetime="2019-10-15T11:44:12.000Z" itemprop="datePublished">十月 15, 2019</time>
+	</a>
+
+       
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Nginx-内置变量大全"><a href="#Nginx-内置变量大全" class="headerlink" title="Nginx 内置变量大全"></a>Nginx 内置变量大全</h2><p><a href="https://github.com/nginx/nginx/blob/master/src/http/ngx_http_variables.c" target="_blank" rel="noopener">源码</a></p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="formula">$args //请求中的的参数名，即“?”后面的arg_name=arg_value形式的arg_name</span></span><br><span class="line"><span class="formula">$</span>arg_PARAMETER //这是参数的一个匹配模式,PARAMETER为具体的参数名,<span class="formula">$arg_PARAMETER就表示获取具体的参数值,例如上面的$</span>arg_name就是获取url中name的值</span><br><span class="line"><span class="formula">$is_args //判断url是否带参数，如果带，则返回一个？,否则返回一个空字符串</span></span><br><span class="line"><span class="formula"></span></span><br><span class="line"><span class="formula">$</span>http_user_agent //获取的是客户端访问代理的类型,请求头中的信息</span><br><span class="line"><span class="formula">$sent_http_content_type //获取的是http响应头中content_type的值</span></span><br><span class="line"><span class="formula">$</span>sent_http_content_length //获取的是http响应头重的content_length的值</span><br><span class="line"></span><br><span class="line"><span class="formula">$request_filename  //该变量获取的是请求的文件在linux服务器上的完整的绝对路径</span></span><br><span class="line"><span class="formula">$</span>request_method  //该表示获取的是http请求的方法</span><br><span class="line"><span class="formula">$request_uri  //该变量表示的原始请求的uri，包括参数。所谓原始请求就是即使在内部做了重定向之后也不会变化</span></span><br><span class="line"><span class="formula">$</span>uri  //获取的是当前请求的uri，不包括参数</span><br><span class="line"><span class="formula">$content_length  //获取的是http请求头中Content-Length的值</span></span><br><span class="line"><span class="formula">$</span>content_type   //获取的是http请求头中的Content-Type字段，不过这里也没显示。。。</span><br><span class="line"><span class="formula">$document_root   //获取的是请求url的文件所在的目录路径</span></span><br><span class="line"><span class="formula">$</span>document_uri   //当前请求的uri，从上面的信息来看,和uri的效果是一样的</span><br><span class="line"><span class="formula">$remote_addr  //获取的是客户端的ip地址,这里为什么是10.0.10.11呢，因为我是在本机上用curl测试的，即使客户端也是服务器</span></span><br><span class="line"><span class="formula">$</span>remote_port  //获取客户端的访问端口，这个端口是随机的</span><br><span class="line"><span class="formula">$remote_user  //获取客户端的认证用户信息，这里因为没有用认证，所谓显示为空</span></span><br><span class="line"><span class="formula">$</span>server_protocol  //表示服务器端想客户端发送响应的协议</span><br><span class="line"><span class="formula">$server_addr  //服务器的地址</span></span><br><span class="line"><span class="formula">$</span>server_name  //客户端访问服务端的域名，即url中的域名(通配符不自动解析)</span><br><span class="line"><span class="formula">$server_port //服务器端做出响应的端口号</span></span><br><span class="line"><span class="formula">$</span>binary_remote_addr  //显示二进制的客户端地址</span><br><span class="line"><span class="formula">$host  //和server_name一样，表示的是域名</span></span><br><span class="line"><span class="formula">$</span>hostname  //表示服务器端的主机名</span><br><span class="line"></span><br><span class="line"><span class="formula">$proxy_add_x_forwarded_for //获取的是客户端的真实ip地址</span></span><br><span class="line"><span class="formula">$</span>proxy_host //该变量获取的是upstream的上游代理名称，例如upstream backend </span><br><span class="line"><span class="formula">$proxy_port   //该变量表示的是要代理到的端口</span></span><br><span class="line"><span class="formula">$</span>proxy_protocol_addr  //代理头部中客户端的ip地址，或者是一个空的字符串</span><br><span class="line"><span class="formula">$upstream_addr  //代理到上游的服务器地址信息</span></span><br><span class="line"><span class="formula">$</span>upstream_cache_status    //proxy的缓存状态，例如这里第一次访问为MISS，第二次访问时为HIT</span><br><span class="line"><span class="formula">$upstream_response_length  //上游服务器响应报文的长度</span></span><br><span class="line"><span class="formula">$</span>upstream_response_time  //上游服务器响应的时间</span><br><span class="line"><span class="formula">$upstream_status  //上游服务器响应的状态码</span></span><br><span class="line"><span class="formula"></span></span><br><span class="line"><span class="formula">$</span>scheme  //表示的是使用http的访问协议 http or https</span><br><span class="line"><span class="formula">$limit_rate  //表示当前连接的限速是多少，0表示无限制</span></span><br><span class="line"><span class="formula">$</span>query_string  //表示的是查询字符串，也就是url中的参数，和<span class="formula">$args一样</span></span><br><span class="line"><span class="formula">$</span>realpath_root  //表示的是请求页面的真实所在目录的路径  和<span class="formula">$document_root是一样的</span></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/">nginx</a></li></ul>
+
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-proxy-in-mybatis"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
     
@@ -241,75 +288,6 @@
 <!-- Table of Contents -->
 
   
-    <article id="post-tcpdump-tshark"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2019/09/23/tcpdump-tshark/">tcpdump及tshark 使用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2019/09/23/tcpdump-tshark/" class="article-date">
-	  <time datetime="2019-09-23T11:19:37.000Z" itemprop="datePublished">九月 23, 2019</time>
-	</a>
-
-       
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="通用抓包工具"><a href="#通用抓包工具" class="headerlink" title="通用抓包工具"></a>通用抓包工具</h2><ol>
-<li>tcpdump</li>
-<li>tshark (wireshark 命令行版)</li>
-</ol>
-<h2 id="tshark-安装"><a href="#tshark-安装" class="headerlink" title="tshark 安装"></a>tshark 安装</h2><p><code>yum install -y wireshark</code></p>
-<h2 id="http请求抓包"><a href="#http请求抓包" class="headerlink" title="http请求抓包"></a>http请求抓包</h2><ul>
-<li>tcpdump方式：</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo tcpdump -A -s 0 'tcp port 8080 and (((ip[2:2] - ((ip[0]&amp;0xf)&lt;&lt;2)) - ((tcp[12]&amp;0xf0)&gt;&gt;2)) != 0)'</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>tshark方式：</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 加 -V 显示包体内容，否则仅url，response_code等</span></span><br><span class="line">sudo tshark -i eth0 -R 'ip.addr ==100.100.17.97 and http'</span><br></pre></td></tr></table></figure>
-
-<h2 id="mysql-抓包"><a href="#mysql-抓包" class="headerlink" title="mysql 抓包"></a>mysql 抓包</h2><ul>
-<li>tcpdump方式</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sudo tcpdump -i any -s 0 -l -w - dst port 3306 | strings | perl -e '</span><br><span class="line">while(&lt;&gt;) &#123; chomp; next if /^[^ ]+[ ]*$/;</span><br><span class="line">    if(/^(SELECT|UPDATE|DELETE|INSERT|SET|COMMIT|ROLLBACK|CREATE|DROP|ALTER|CALL)/i)</span><br><span class="line">    &#123;</span><br><span class="line">        if (defined $q) &#123; print "$q\n"; &#125;</span><br><span class="line">        $q=$_;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        $_ =~ s/^[ \t]+//; $q.=" $_";</span><br><span class="line">    &#125;</span><br><span class="line">&#125;'</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>tshark方式</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> time_delta 本次回包耗时（RTT）</span></span><br><span class="line">sudo tshark -i eth0 -R "ip.addr==ip" -d tcp.port==3306,mysql -o tcp.calculate_timestamps:true -T fields -e frame.number -e frame.time_epoch -e frame.time_delta_displayed -e ip.src -e tcp.srcport -e ip.dst -e tcp.dstport -e tcp.time_delta -e tcp.stream -e tcp.len -e mysql.query</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-    <footer class="entry-meta entry-footer">
-      
-      
-  <span class="ico-tags"></span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Net/">Net</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tcpdump/">Tcpdump</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tshark/">Tshark</a></li></ul>
-
-      
-    </footer>
-    <hr class="entry-footer-hr">
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
     <article id="post-tcpdump"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
     
@@ -413,6 +391,75 @@
       
   <span class="ico-tags"></span>
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Net/">Net</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tcpdump/">Tcpdump</a></li></ul>
+
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-tcpdump-tshark"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2019/09/23/tcpdump-tshark/">tcpdump及tshark 使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2019/09/23/tcpdump-tshark/" class="article-date">
+	  <time datetime="2019-09-23T11:19:37.000Z" itemprop="datePublished">九月 23, 2019</time>
+	</a>
+
+       
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="通用抓包工具"><a href="#通用抓包工具" class="headerlink" title="通用抓包工具"></a>通用抓包工具</h2><ol>
+<li>tcpdump</li>
+<li>tshark (wireshark 命令行版)</li>
+</ol>
+<h2 id="tshark-安装"><a href="#tshark-安装" class="headerlink" title="tshark 安装"></a>tshark 安装</h2><p><code>yum install -y wireshark</code></p>
+<h2 id="http请求抓包"><a href="#http请求抓包" class="headerlink" title="http请求抓包"></a>http请求抓包</h2><ul>
+<li>tcpdump方式：</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo tcpdump -A -s 0 'tcp port 8080 and (((ip[2:2] - ((ip[0]&amp;0xf)&lt;&lt;2)) - ((tcp[12]&amp;0xf0)&gt;&gt;2)) != 0)'</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>tshark方式：</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 加 -V 显示包体内容，否则仅url，response_code等</span></span><br><span class="line">sudo tshark -i eth0 -R 'ip.addr ==100.100.17.97 and http'</span><br></pre></td></tr></table></figure>
+
+<h2 id="mysql-抓包"><a href="#mysql-抓包" class="headerlink" title="mysql 抓包"></a>mysql 抓包</h2><ul>
+<li>tcpdump方式</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sudo tcpdump -i any -s 0 -l -w - dst port 3306 | strings | perl -e '</span><br><span class="line">while(&lt;&gt;) &#123; chomp; next if /^[^ ]+[ ]*$/;</span><br><span class="line">    if(/^(SELECT|UPDATE|DELETE|INSERT|SET|COMMIT|ROLLBACK|CREATE|DROP|ALTER|CALL)/i)</span><br><span class="line">    &#123;</span><br><span class="line">        if (defined $q) &#123; print "$q\n"; &#125;</span><br><span class="line">        $q=$_;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        $_ =~ s/^[ \t]+//; $q.=" $_";</span><br><span class="line">    &#125;</span><br><span class="line">&#125;'</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>tshark方式</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> time_delta 本次回包耗时（RTT）</span></span><br><span class="line">sudo tshark -i eth0 -R "ip.addr==ip" -d tcp.port==3306,mysql -o tcp.calculate_timestamps:true -T fields -e frame.number -e frame.time_epoch -e frame.time_delta_displayed -e ip.src -e tcp.srcport -e ip.dst -e tcp.dstport -e tcp.time_delta -e tcp.stream -e tcp.len -e mysql.query</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Net/">Net</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tcpdump/">Tcpdump</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tshark/">Tshark</a></li></ul>
 
       
     </footer>
@@ -833,6 +880,18 @@
               <div class="widget-entry-summary" style="margin: 0;">
             
 
+              <h6 style="margin: 0;"><a href="/2020/08/26/jdb/">jdb</a></h6>
+              <span>八月 26, 2020</span>
+            </div>
+
+          </li>
+        
+          <li class="clearfix">
+
+            
+              <div class="widget-entry-summary" style="margin: 0;">
+            
+
               <h6 style="margin: 0;"><a href="/2020/07/06/ClassLoader/">ClassLoader</a></h6>
               <span>七月 6, 2020</span>
             </div>
@@ -887,18 +946,6 @@
 
           </li>
         
-          <li class="clearfix">
-
-            
-              <div class="widget-entry-summary" style="margin: 0;">
-            
-
-              <h6 style="margin: 0;"><a href="/2020/04/26/big-endian/">big_endian</a></h6>
-              <span>四月 26, 2020</span>
-            </div>
-
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -918,7 +965,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Endian-字节序-网络通信/">Endian 字节序 网络通信</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub-PR/">GitHub PR</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux-Iptables-Netstat-端口/">Linux Iptables Netstat 端口</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux-diff-comm-grep/">Linux diff comm grep</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyBatis/">MyBatis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mybatis-MySQL/">Mybatis MySQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mybatis-Proxy/">Mybatis Proxy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Net/">Net</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tcpdump/">Tcpdump</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tshark/">Tshark</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/binlog-protocol/">binlog protocol</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker-mysql/">docker mysql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jvm-classloader/">jvm classloader</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql-binlog-xa/">mysql binlog xa</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql-server/">mysql server</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx-灰度/">nginx 灰度</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/建站/">建站</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Endian-字节序-网络通信/">Endian 字节序 网络通信</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GitHub-PR/">GitHub PR</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux-Iptables-Netstat-端口/">Linux Iptables Netstat 端口</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux-diff-comm-grep/">Linux diff comm grep</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MyBatis/">MyBatis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mybatis-MySQL/">Mybatis MySQL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mybatis-Proxy/">Mybatis Proxy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Net/">Net</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tcpdump/">Tcpdump</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tshark/">Tshark</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/binlog-protocol/">binlog protocol</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/debug-jdb/">debug jdb</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker-mysql/">docker mysql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jvm-classloader/">jvm classloader</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql-binlog-xa/">mysql binlog xa</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql-server/">mysql server</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx-灰度/">nginx 灰度</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/建站/">建站</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -928,7 +975,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Endian-字节序-网络通信/" style="font-size: 10px;">Endian 字节序 网络通信</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/GitHub-PR/" style="font-size: 10px;">GitHub PR</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Linux-Iptables-Netstat-端口/" style="font-size: 10px;">Linux Iptables Netstat 端口</a> <a href="/tags/Linux-diff-comm-grep/" style="font-size: 10px;">Linux diff comm grep</a> <a href="/tags/MyBatis/" style="font-size: 10px;">MyBatis</a> <a href="/tags/Mybatis-MySQL/" style="font-size: 10px;">Mybatis MySQL</a> <a href="/tags/Mybatis-Proxy/" style="font-size: 10px;">Mybatis Proxy</a> <a href="/tags/Net/" style="font-size: 20px;">Net</a> <a href="/tags/Tcpdump/" style="font-size: 20px;">Tcpdump</a> <a href="/tags/Tshark/" style="font-size: 10px;">Tshark</a> <a href="/tags/binlog-protocol/" style="font-size: 10px;">binlog protocol</a> <a href="/tags/docker-mysql/" style="font-size: 10px;">docker mysql</a> <a href="/tags/jvm-classloader/" style="font-size: 10px;">jvm classloader</a> <a href="/tags/mysql-binlog-xa/" style="font-size: 10px;">mysql binlog xa</a> <a href="/tags/mysql-server/" style="font-size: 10px;">mysql server</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/nginx-灰度/" style="font-size: 10px;">nginx 灰度</a> <a href="/tags/建站/" style="font-size: 10px;">建站</a>
+      <a href="/tags/Endian-字节序-网络通信/" style="font-size: 10px;">Endian 字节序 网络通信</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/GitHub-PR/" style="font-size: 10px;">GitHub PR</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/Linux-Iptables-Netstat-端口/" style="font-size: 10px;">Linux Iptables Netstat 端口</a> <a href="/tags/Linux-diff-comm-grep/" style="font-size: 10px;">Linux diff comm grep</a> <a href="/tags/MyBatis/" style="font-size: 10px;">MyBatis</a> <a href="/tags/Mybatis-MySQL/" style="font-size: 10px;">Mybatis MySQL</a> <a href="/tags/Mybatis-Proxy/" style="font-size: 10px;">Mybatis Proxy</a> <a href="/tags/Net/" style="font-size: 20px;">Net</a> <a href="/tags/Tcpdump/" style="font-size: 20px;">Tcpdump</a> <a href="/tags/Tshark/" style="font-size: 10px;">Tshark</a> <a href="/tags/binlog-protocol/" style="font-size: 10px;">binlog protocol</a> <a href="/tags/debug-jdb/" style="font-size: 10px;">debug jdb</a> <a href="/tags/docker-mysql/" style="font-size: 10px;">docker mysql</a> <a href="/tags/jvm-classloader/" style="font-size: 10px;">jvm classloader</a> <a href="/tags/mysql-binlog-xa/" style="font-size: 10px;">mysql binlog xa</a> <a href="/tags/mysql-server/" style="font-size: 10px;">mysql server</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/nginx-灰度/" style="font-size: 10px;">nginx 灰度</a> <a href="/tags/建站/" style="font-size: 10px;">建站</a>
     </div>
   </div>
 
@@ -938,7 +985,7 @@
     <h3 class="widget-title">归档</h3>
 
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">8</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">七月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">8</span></li></ul>
     </div>
   </div>
 
