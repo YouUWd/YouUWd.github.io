@@ -288,75 +288,6 @@
 <!-- Table of Contents -->
 
   
-    <article id="post-tcpdump-tshark"  class="article article-type-post" itemscope itemprop="blogPost" >
-  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="thumb" itemprop="name">
-      <a class="article-title" href="/2019/09/23/tcpdump-tshark/">tcpdump及tshark 使用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      
-	<a href="/2019/09/23/tcpdump-tshark/" class="article-date">
-	  <time datetime="2019-09-23T11:19:37.000Z" itemprop="datePublished">九月 23, 2019</time>
-	</a>
-
-       
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="通用抓包工具"><a href="#通用抓包工具" class="headerlink" title="通用抓包工具"></a>通用抓包工具</h2><ol>
-<li>tcpdump</li>
-<li>tshark (wireshark 命令行版)</li>
-</ol>
-<h2 id="tshark-安装"><a href="#tshark-安装" class="headerlink" title="tshark 安装"></a>tshark 安装</h2><p><code>yum install -y wireshark</code></p>
-<h2 id="http请求抓包"><a href="#http请求抓包" class="headerlink" title="http请求抓包"></a>http请求抓包</h2><ul>
-<li>tcpdump方式：</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo tcpdump -A -s 0 'tcp port 8080 and (((ip[2:2] - ((ip[0]&amp;0xf)&lt;&lt;2)) - ((tcp[12]&amp;0xf0)&gt;&gt;2)) != 0)'</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>tshark方式：</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 加 -V 显示包体内容，否则仅url，response_code等</span></span><br><span class="line">sudo tshark -i eth0 -R 'ip.addr ==100.100.17.97 and http'</span><br></pre></td></tr></table></figure>
-
-<h2 id="mysql-抓包"><a href="#mysql-抓包" class="headerlink" title="mysql 抓包"></a>mysql 抓包</h2><ul>
-<li>tcpdump方式</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sudo tcpdump -i any -s 0 -l -w - dst port 3306 | strings | perl -e '</span><br><span class="line">while(&lt;&gt;) &#123; chomp; next if /^[^ ]+[ ]*$/;</span><br><span class="line">    if(/^(SELECT|UPDATE|DELETE|INSERT|SET|COMMIT|ROLLBACK|CREATE|DROP|ALTER|CALL)/i)</span><br><span class="line">    &#123;</span><br><span class="line">        if (defined $q) &#123; print "$q\n"; &#125;</span><br><span class="line">        $q=$_;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        $_ =~ s/^[ \t]+//; $q.=" $_";</span><br><span class="line">    &#125;</span><br><span class="line">&#125;'</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>tshark方式</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> time_delta 本次回包耗时（RTT）</span></span><br><span class="line">sudo tshark -i eth0 -R "ip.addr==ip" -d tcp.port==3306,mysql -o tcp.calculate_timestamps:true -T fields -e frame.number -e frame.time_epoch -e frame.time_delta_displayed -e ip.src -e tcp.srcport -e ip.dst -e tcp.dstport -e tcp.time_delta -e tcp.stream -e tcp.len -e mysql.query</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-    <footer class="entry-meta entry-footer">
-      
-      
-  <span class="ico-tags"></span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Net/">Net</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tcpdump/">Tcpdump</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tshark/">Tshark</a></li></ul>
-
-      
-    </footer>
-    <hr class="entry-footer-hr">
-  </div>
-  
-</article>
-
-<!-- Table of Contents -->
-
-  
     <article id="post-tcpdump"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
     
@@ -460,6 +391,75 @@
       
   <span class="ico-tags"></span>
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Net/">Net</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tcpdump/">Tcpdump</a></li></ul>
+
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
+    <article id="post-tcpdump-tshark"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2019/09/23/tcpdump-tshark/">tcpdump及tshark 使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2019/09/23/tcpdump-tshark/" class="article-date">
+	  <time datetime="2019-09-23T11:19:37.000Z" itemprop="datePublished">九月 23, 2019</time>
+	</a>
+
+       
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="通用抓包工具"><a href="#通用抓包工具" class="headerlink" title="通用抓包工具"></a>通用抓包工具</h2><ol>
+<li>tcpdump</li>
+<li>tshark (wireshark 命令行版)</li>
+</ol>
+<h2 id="tshark-安装"><a href="#tshark-安装" class="headerlink" title="tshark 安装"></a>tshark 安装</h2><p><code>yum install -y wireshark</code></p>
+<h2 id="http请求抓包"><a href="#http请求抓包" class="headerlink" title="http请求抓包"></a>http请求抓包</h2><ul>
+<li>tcpdump方式：</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo tcpdump -A -s 0 'tcp port 8080 and (((ip[2:2] - ((ip[0]&amp;0xf)&lt;&lt;2)) - ((tcp[12]&amp;0xf0)&gt;&gt;2)) != 0)'</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>tshark方式：</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 加 -V 显示包体内容，否则仅url，response_code等</span></span><br><span class="line">sudo tshark -i eth0 -R 'ip.addr ==100.100.17.97 and http'</span><br></pre></td></tr></table></figure>
+
+<h2 id="mysql-抓包"><a href="#mysql-抓包" class="headerlink" title="mysql 抓包"></a>mysql 抓包</h2><ul>
+<li>tcpdump方式</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sudo tcpdump -i any -s 0 -l -w - dst port 3306 | strings | perl -e '</span><br><span class="line">while(&lt;&gt;) &#123; chomp; next if /^[^ ]+[ ]*$/;</span><br><span class="line">    if(/^(SELECT|UPDATE|DELETE|INSERT|SET|COMMIT|ROLLBACK|CREATE|DROP|ALTER|CALL)/i)</span><br><span class="line">    &#123;</span><br><span class="line">        if (defined $q) &#123; print "$q\n"; &#125;</span><br><span class="line">        $q=$_;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        $_ =~ s/^[ \t]+//; $q.=" $_";</span><br><span class="line">    &#125;</span><br><span class="line">&#125;'</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>tshark方式</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> time_delta 本次回包耗时（RTT）</span></span><br><span class="line">sudo tshark -i eth0 -R "ip.addr==ip" -d tcp.port==3306,mysql -o tcp.calculate_timestamps:true -T fields -e frame.number -e frame.time_epoch -e frame.time_delta_displayed -e ip.src -e tcp.srcport -e ip.dst -e tcp.dstport -e tcp.time_delta -e tcp.stream -e tcp.len -e mysql.query</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Net/">Net</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tcpdump/">Tcpdump</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tshark/">Tshark</a></li></ul>
 
       
     </footer>
