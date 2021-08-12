@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Mybatis源码解读 | YouN</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="MyBatis" />
+  
+  
+  
+  
+  <meta name="description" content="整体代码结构 几个核心包Executor Session SqlSession 数据库连接打开  org.apache.ibatis.transaction.jdbc.JdbcTransaction#openConnection Mapper 生成12345T org.apache.ibatis.session.defaults.DefaultSqlSession#getMapperT org.a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mybatis源码解读">
+<meta property="og:url" content="http://yoursite.com/2019/09/24/mybatis-unscramble/index.html">
+<meta property="og:site_name" content="YouN">
+<meta property="og:description" content="整体代码结构 几个核心包Executor Session SqlSession 数据库连接打开  org.apache.ibatis.transaction.jdbc.JdbcTransaction#openConnection Mapper 生成12345T org.apache.ibatis.session.defaults.DefaultSqlSession#getMapperT org.a">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://youuwd.github.io/images/Package-ibatis.png">
+<meta property="og:image" content="https://youuwd.github.io/images/Package-executor.png">
+<meta property="og:image" content="https://youuwd.github.io/images/Package-session.png">
+<meta property="og:image" content="https://youuwd.github.io/images/SqlSession.png">
+<meta property="og:image" content="https://youuwd.github.io/images/transaction.png">
+<meta property="og:image" content="https://youuwd.github.io/images/jdbc.png">
+<meta property="og:image" content="https://youuwd.github.io/images/query.jpg">
+<meta property="article:published_time" content="2019-09-24T11:54:35.000Z">
+<meta property="article:modified_time" content="2021-08-11T06:44:13.681Z">
+<meta property="article:author" content="Timmy">
+<meta property="article:tag" content="MyBatis">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://youuwd.github.io/images/Package-ibatis.png">
+  
+    <link rel="alternate" href="/atom.xml" title="YouN" type="application/atom+xml">
+  
+  <link rel="icon" href="/css/images/favicon.ico">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+    
+  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+
+  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Oswald%3A300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+<script src="/js/jquery-3.1.1.min.js"></script>
+
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+  <link rel="stylesheet" href="/css/fashion.css" >
+  <link rel="stylesheet" href="/css/glyphs.css" >
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+
+
+<header id="allheader" class="site-header" role="banner" 
+   >
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" rel="home" >
+                <img style="margin-bottom: 6px;"  width="126px" height="60px" alt="Hike News" src=" /css/images/youu.jpg">
+              </a>
+            
+          </h1>
+          
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+
+            <div class="clearfix sf-menu">
+              <ul id="main-nav" class="menu sf-js-enabled sf-arrows"  style="touch-action: pan-y;">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663" linktext="/"> <a class="" href="/">首页</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663" linktext="archives"> <a class="" href="/archives">归档</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663" linktext="categories"> <a class="" href="/categories">分类</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663" linktext="tags"> <a class="" href="/tags">标签</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663" linktext="about"> <a class="" href="/about">关于</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-mybatis-unscramble" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      Mybatis源码解读
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2019/09/24/mybatis-unscramble/" class="article-date">
+	  <time datetime="2019-09-24T11:54:35.000Z" itemprop="datePublished">九月 24, 2019</time>
+	</a>
+
+      
+	<span class="ico-folder"></span>
+    <a class="article-category-link" href="/categories/Mybatis/">Mybatis</a>
+ 
+      
+	<span id="busuanzi_container_page_pv">
+	  本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+	</span>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="整体代码结构"><a href="#整体代码结构" class="headerlink" title="整体代码结构"></a>整体代码结构</h2><p><img src="https://youuwd.github.io/images/Package-ibatis.png" alt="Package ibatis"></p>
+<h2 id="几个核心包"><a href="#几个核心包" class="headerlink" title="几个核心包"></a>几个核心包</h2><h3 id="Executor"><a href="#Executor" class="headerlink" title="Executor"></a>Executor</h3><p><img src="https://youuwd.github.io/images/Package-executor.png" alt="Package Executor"></p>
+<h3 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h3><p><img src="https://youuwd.github.io/images/Package-session.png" alt="Package session"></p>
+<h3 id="SqlSession"><a href="#SqlSession" class="headerlink" title="SqlSession"></a>SqlSession</h3><p><img src="https://youuwd.github.io/images/SqlSession.png" alt="sqlSession"></p>
+<h2 id="数据库连接打开"><a href="#数据库连接打开" class="headerlink" title="数据库连接打开"></a>数据库连接打开</h2><p><img src="https://youuwd.github.io/images/transaction.png" alt="transaction"></p>
+<p><img src="https://youuwd.github.io/images/jdbc.png" alt="transaction-jdbc"></p>
+<p><code>org.apache.ibatis.transaction.jdbc.JdbcTransaction#openConnection</code></p>
+<h2 id="Mapper-生成"><a href="#Mapper-生成" class="headerlink" title="Mapper 生成"></a>Mapper 生成</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">T org.apache.ibatis.session.defaults.DefaultSqlSession#getMapper</span><br><span class="line">T org.apache.ibatis.session.Configuration#getMapper</span><br><span class="line">T org.apache.ibatis.binding.MapperRegistry#getMapper</span><br><span class="line">T org.apache.ibatis.binding.MapperProxyFactory#newInstance(org.apache.ibatis.session.SqlSession)</span><br><span class="line">T java.lang.reflect.Proxy#newProxyInstance</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="SQL流图"><a href="#SQL流图" class="headerlink" title="SQL流图"></a>SQL流图</h2><p><img src="https://youuwd.github.io/images/query.jpg" alt="sql"></p>
+<h2 id="Select-流程"><a href="#Select-流程" class="headerlink" title="Select 流程"></a>Select 流程</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">org.apache.ibatis.executor.CachingExecutor#query(ms,parameterObject,rowBounds,resultHandler)</span><br><span class="line">org.apache.ibatis.executor.BaseExecutor#query(ms,parameter,rowBounds,resultHandler,key,boundSql)</span><br><span class="line">org.apache.ibatis.executor.BaseExecutor#queryFromDatabase</span><br><span class="line">org.apache.ibatis.executor.SimpleExecutor#doQuery</span><br><span class="line">org.apache.ibatis.executor.statement.RoutingStatementHandler#parameterize</span><br><span class="line">org.apache.ibatis.executor.statement.PreparedStatementHandler#parameterize</span><br><span class="line">org.apache.ibatis.scripting.defaults.DefaultParameterHandler#setParameters</span><br><span class="line">org.apache.ibatis.executor.statement.RoutingStatementHandler#query</span><br><span class="line">org.apache.ibatis.executor.resultset.DefaultResultSetHandler#handleResultSets</span><br></pre></td></tr></table></figure>
+
+<p><font color="red">Executor ==&gt; Statement ==&gt; Parameter ==&gt; ResultSet</font></p>
+<blockquote>
+<p><em>绿色</em> 几个组件都是可以通过mybatis插件改写的，参考  <a target="_blank" rel="noopener" href="https://mybatis.org/mybatis-3/zh/configuration.html#plugins">mybatis plugin</a></p>
+<ul>
+<li><p>Executor (update, query, flushStatements, commit, rollback, getTransaction, close, isClosed)</p>
+</li>
+<li><p>StatementHandler (prepare, parameterize, batch, update, query)</p>
+</li>
+<li><p>ParameterHandler (getParameterObject, setParameters)</p>
+</li>
+<li><p>ResultSetHandler (handleResultSets, handleOutputParameters)</p>
+</li>
+</ul>
+</blockquote>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+	<span class="ico-folder"></span>
+    <a class="article-category-link" href="/categories/Mybatis/">Mybatis</a>
+
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MyBatis/" rel="tag">MyBatis</a></li></ul>
+
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/10/11/proxy-in-mybatis/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          proxy-in-mybatis
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/09/23/tcpdump-tshark/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">tcpdump及tshark 使用</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B4%E4%BD%93%E4%BB%A3%E7%A0%81%E7%BB%93%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">整体代码结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%A0%E4%B8%AA%E6%A0%B8%E5%BF%83%E5%8C%85"><span class="nav-number">2.</span> <span class="nav-text">几个核心包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Executor"><span class="nav-number">2.1.</span> <span class="nav-text">Executor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Session"><span class="nav-number">2.2.</span> <span class="nav-text">Session</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SqlSession"><span class="nav-number">2.3.</span> <span class="nav-text">SqlSession</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E6%89%93%E5%BC%80"><span class="nav-number">3.</span> <span class="nav-text">数据库连接打开</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mapper-%E7%94%9F%E6%88%90"><span class="nav-number">4.</span> <span class="nav-text">Mapper 生成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL%E6%B5%81%E5%9B%BE"><span class="nav-number">5.</span> <span class="nav-text">SQL流图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Select-%E6%B5%81%E7%A8%8B"><span class="nav-number">6.</span> <span class="nav-text">Select 流程</span></a></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    <footer id="footer" class="site-footer">
+  
+
+  <div class="clearfix container">
+      <div class="site-info">
+	      &copy; 2021 YouN All Rights Reserved.
+        
+            <span id="busuanzi_container_site_uv">
+              本站访客数<span id="busuanzi_value_site_uv"></span>人次  
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+            </span>
+          
+      </div>
+      <div class="site-credit">
+        Theme by <a href="https://github.com/iTimeTraveler/hexo-theme-hipaper" target="_blank">hipaper</a>
+      </div>
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+
+
+    <!-- headerblur min height -->
+    
+    
+</script>
+    
+<div style="display: none;">
+  <script src="https://s11.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+</div>
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/bootstrap.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>

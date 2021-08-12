@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>nginx-variables | YouN</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="nginx" />
+  
+  
+  
+  
+  <meta name="description" content="Nginx 内置变量大全源码 1234567891011121314151617181920212223242526272829303132333435363738394041$args &#x2F;&#x2F;请求中的的参数名，即“?”后面的arg_name&#x3D;arg_value形式的arg_name$arg_PARAMETER &#x2F;&#x2F;这是参数的一个匹配模式,PARAMETER为具体的参数名,$arg_PARAMETE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nginx-variables">
+<meta property="og:url" content="http://yoursite.com/2019/10/15/nginx-variables/index.html">
+<meta property="og:site_name" content="YouN">
+<meta property="og:description" content="Nginx 内置变量大全源码 1234567891011121314151617181920212223242526272829303132333435363738394041$args &#x2F;&#x2F;请求中的的参数名，即“?”后面的arg_name&#x3D;arg_value形式的arg_name$arg_PARAMETER &#x2F;&#x2F;这是参数的一个匹配模式,PARAMETER为具体的参数名,$arg_PARAMETE">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-10-15T11:44:12.000Z">
+<meta property="article:modified_time" content="2021-08-11T06:44:13.687Z">
+<meta property="article:author" content="Timmy">
+<meta property="article:tag" content="nginx">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="YouN" type="application/atom+xml">
+  
+  <link rel="icon" href="/css/images/favicon.ico">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+    
+  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+
+  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Oswald%3A300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+<script src="/js/jquery-3.1.1.min.js"></script>
+
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+  <link rel="stylesheet" href="/css/fashion.css" >
+  <link rel="stylesheet" href="/css/glyphs.css" >
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+
+
+<header id="allheader" class="site-header" role="banner" 
+   >
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" rel="home" >
+                <img style="margin-bottom: 6px;"  width="126px" height="60px" alt="Hike News" src=" /css/images/youu.jpg">
+              </a>
+            
+          </h1>
+          
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+
+            <div class="clearfix sf-menu">
+              <ul id="main-nav" class="menu sf-js-enabled sf-arrows"  style="touch-action: pan-y;">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663" linktext="/"> <a class="" href="/">首页</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663" linktext="archives"> <a class="" href="/archives">归档</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663" linktext="categories"> <a class="" href="/categories">分类</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663" linktext="tags"> <a class="" href="/tags">标签</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663" linktext="about"> <a class="" href="/about">关于</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-nginx-variables" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      nginx-variables
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2019/10/15/nginx-variables/" class="article-date">
+	  <time datetime="2019-10-15T11:44:12.000Z" itemprop="datePublished">十月 15, 2019</time>
+	</a>
+
+       
+      
+	<span id="busuanzi_container_page_pv">
+	  本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+	</span>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Nginx-内置变量大全"><a href="#Nginx-内置变量大全" class="headerlink" title="Nginx 内置变量大全"></a>Nginx 内置变量大全</h2><p><a target="_blank" rel="noopener" href="https://github.com/nginx/nginx/blob/master/src/http/ngx_http_variables.c">源码</a></p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">$</span>args //请求中的的参数名，即“?”后面的arg<span class="built_in">_</span>name=arg<span class="built_in">_</span>value形式的arg<span class="built_in">_</span>name</span><br><span class="line"><span class="built_in">$</span>arg<span class="built_in">_</span>PARAMETER //这是参数的一个匹配模式,PARAMETER为具体的参数名,<span class="built_in">$</span>arg<span class="built_in">_</span>PARAMETER就表示获取具体的参数值,例如上面的<span class="built_in">$</span>arg<span class="built_in">_</span>name就是获取url中name的值</span><br><span class="line"><span class="built_in">$</span>is<span class="built_in">_</span>args //判断url是否带参数，如果带，则返回一个？,否则返回一个空字符串</span><br><span class="line"></span><br><span class="line"><span class="built_in">$</span>http<span class="built_in">_</span>user<span class="built_in">_</span>agent //获取的是客户端访问代理的类型,请求头中的信息</span><br><span class="line"><span class="built_in">$</span>sent<span class="built_in">_</span>http<span class="built_in">_</span>content<span class="built_in">_</span>type //获取的是http响应头中content<span class="built_in">_</span>type的值</span><br><span class="line"><span class="built_in">$</span>sent<span class="built_in">_</span>http<span class="built_in">_</span>content<span class="built_in">_</span>length //获取的是http响应头重的content<span class="built_in">_</span>length的值</span><br><span class="line"></span><br><span class="line"><span class="built_in">$</span>request<span class="built_in">_</span>filename  //该变量获取的是请求的文件在linux服务器上的完整的绝对路径</span><br><span class="line"><span class="built_in">$</span>request<span class="built_in">_</span>method  //该表示获取的是http请求的方法</span><br><span class="line"><span class="built_in">$</span>request<span class="built_in">_</span>uri  //该变量表示的原始请求的uri，包括参数。所谓原始请求就是即使在内部做了重定向之后也不会变化</span><br><span class="line"><span class="built_in">$</span>uri  //获取的是当前请求的uri，不包括参数</span><br><span class="line"><span class="built_in">$</span>content<span class="built_in">_</span>length  //获取的是http请求头中Content-Length的值</span><br><span class="line"><span class="built_in">$</span>content<span class="built_in">_</span>type   //获取的是http请求头中的Content-Type字段，不过这里也没显示。。。</span><br><span class="line"><span class="built_in">$</span>document<span class="built_in">_</span>root   //获取的是请求url的文件所在的目录路径</span><br><span class="line"><span class="built_in">$</span>document<span class="built_in">_</span>uri   //当前请求的uri，从上面的信息来看,和uri的效果是一样的</span><br><span class="line"><span class="built_in">$</span>remote<span class="built_in">_</span>addr  //获取的是客户端的ip地址,这里为什么是10.0.10.11呢，因为我是在本机上用curl测试的，即使客户端也是服务器</span><br><span class="line"><span class="built_in">$</span>remote<span class="built_in">_</span>port  //获取客户端的访问端口，这个端口是随机的</span><br><span class="line"><span class="built_in">$</span>remote<span class="built_in">_</span>user  //获取客户端的认证用户信息，这里因为没有用认证，所谓显示为空</span><br><span class="line"><span class="built_in">$</span>server<span class="built_in">_</span>protocol  //表示服务器端想客户端发送响应的协议</span><br><span class="line"><span class="built_in">$</span>server<span class="built_in">_</span>addr  //服务器的地址</span><br><span class="line"><span class="built_in">$</span>server<span class="built_in">_</span>name  //客户端访问服务端的域名，即url中的域名(通配符不自动解析)</span><br><span class="line"><span class="built_in">$</span>server<span class="built_in">_</span>port //服务器端做出响应的端口号</span><br><span class="line"><span class="built_in">$</span>binary<span class="built_in">_</span>remote<span class="built_in">_</span>addr  //显示二进制的客户端地址</span><br><span class="line"><span class="built_in">$</span>host  //和server<span class="built_in">_</span>name一样，表示的是域名</span><br><span class="line"><span class="built_in">$</span>hostname  //表示服务器端的主机名</span><br><span class="line"></span><br><span class="line"><span class="built_in">$</span>proxy<span class="built_in">_</span>add<span class="built_in">_</span>x<span class="built_in">_</span>forwarded<span class="built_in">_</span>for //获取的是客户端的真实ip地址</span><br><span class="line"><span class="built_in">$</span>proxy<span class="built_in">_</span>host //该变量获取的是upstream的上游代理名称，例如upstream backend </span><br><span class="line"><span class="built_in">$</span>proxy<span class="built_in">_</span>port   //该变量表示的是要代理到的端口</span><br><span class="line"><span class="built_in">$</span>proxy<span class="built_in">_</span>protocol<span class="built_in">_</span>addr  //代理头部中客户端的ip地址，或者是一个空的字符串</span><br><span class="line"><span class="built_in">$</span>upstream<span class="built_in">_</span>addr  //代理到上游的服务器地址信息</span><br><span class="line"><span class="built_in">$</span>upstream<span class="built_in">_</span>cache<span class="built_in">_</span>status    //proxy的缓存状态，例如这里第一次访问为MISS，第二次访问时为HIT</span><br><span class="line"><span class="built_in">$</span>upstream<span class="built_in">_</span>response<span class="built_in">_</span>length  //上游服务器响应报文的长度</span><br><span class="line"><span class="built_in">$</span>upstream<span class="built_in">_</span>response<span class="built_in">_</span>time  //上游服务器响应的时间</span><br><span class="line"><span class="built_in">$</span>upstream<span class="built_in">_</span>status  //上游服务器响应的状态码</span><br><span class="line"></span><br><span class="line"><span class="built_in">$</span>scheme  //表示的是使用http的访问协议 http or https</span><br><span class="line"><span class="built_in">$</span>limit<span class="built_in">_</span>rate  //表示当前连接的限速是多少，0表示无限制</span><br><span class="line"><span class="built_in">$</span>query<span class="built_in">_</span>string  //表示的是查询字符串，也就是url中的参数，和<span class="built_in">$</span>args一样</span><br><span class="line"><span class="built_in">$</span>realpath<span class="built_in">_</span>root  //表示的是请求页面的真实所在目录的路径  和<span class="built_in">$</span>document<span class="built_in">_</span>root是一样的</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/" rel="tag">nginx</a></li></ul>
+
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/11/06/file-diff/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          Linux 文件对比命令
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/10/11/proxy-in-mybatis/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">proxy-in-mybatis</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx-%E5%86%85%E7%BD%AE%E5%8F%98%E9%87%8F%E5%A4%A7%E5%85%A8"><span class="nav-number">1.</span> <span class="nav-text">Nginx 内置变量大全</span></a></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    <footer id="footer" class="site-footer">
+  
+
+  <div class="clearfix container">
+      <div class="site-info">
+	      &copy; 2021 YouN All Rights Reserved.
+        
+            <span id="busuanzi_container_site_uv">
+              本站访客数<span id="busuanzi_value_site_uv"></span>人次  
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+            </span>
+          
+      </div>
+      <div class="site-credit">
+        Theme by <a href="https://github.com/iTimeTraveler/hexo-theme-hipaper" target="_blank">hipaper</a>
+      </div>
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+
+
+    <!-- headerblur min height -->
+    
+    
+</script>
+    
+<div style="display: none;">
+  <script src="https://s11.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+</div>
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/bootstrap.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>

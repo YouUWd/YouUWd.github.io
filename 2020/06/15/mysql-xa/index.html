@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>mysql-xa | YouN</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="mysql binlog xa" />
+  
+  
+  
+  
+  <meta name="description" content="MySQL XA 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455boolean logXaCommands &#x3D; true;   &#x2F;&#x2F; 获得资源管理器操作接口实例 RM1   Connection conn1 &#x3D; DriverManager.ge">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql-xa">
+<meta property="og:url" content="http://yoursite.com/2020/06/15/mysql-xa/index.html">
+<meta property="og:site_name" content="YouN">
+<meta property="og:description" content="MySQL XA 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455boolean logXaCommands &#x3D; true;   &#x2F;&#x2F; 获得资源管理器操作接口实例 RM1   Connection conn1 &#x3D; DriverManager.ge">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://youuwd.github.io/images/xa.png">
+<meta property="article:published_time" content="2020-06-15T09:31:42.000Z">
+<meta property="article:modified_time" content="2021-08-11T06:44:13.679Z">
+<meta property="article:author" content="Timmy">
+<meta property="article:tag" content="mysql binlog xa">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://youuwd.github.io/images/xa.png">
+  
+    <link rel="alternate" href="/atom.xml" title="YouN" type="application/atom+xml">
+  
+  <link rel="icon" href="/css/images/favicon.ico">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+    
+  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+
+  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Oswald%3A300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+<script src="/js/jquery-3.1.1.min.js"></script>
+
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+  <link rel="stylesheet" href="/css/fashion.css" >
+  <link rel="stylesheet" href="/css/glyphs.css" >
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+
+
+<header id="allheader" class="site-header" role="banner" 
+   >
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" rel="home" >
+                <img style="margin-bottom: 6px;"  width="126px" height="60px" alt="Hike News" src=" /css/images/youu.jpg">
+              </a>
+            
+          </h1>
+          
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+
+            <div class="clearfix sf-menu">
+              <ul id="main-nav" class="menu sf-js-enabled sf-arrows"  style="touch-action: pan-y;">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663" linktext="/"> <a class="" href="/">首页</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663" linktext="archives"> <a class="" href="/archives">归档</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663" linktext="categories"> <a class="" href="/categories">分类</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663" linktext="tags"> <a class="" href="/tags">标签</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663" linktext="about"> <a class="" href="/about">关于</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-mysql-xa" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      mysql-xa
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2020/06/15/mysql-xa/" class="article-date">
+	  <time datetime="2020-06-15T09:31:42.000Z" itemprop="datePublished">六月 15, 2020</time>
+	</a>
+
+       
+      
+	<span id="busuanzi_container_page_pv">
+	  本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+	</span>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>MySQL XA</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">boolean</span> logXaCommands = <span class="keyword">true</span>;</span><br><span class="line">   <span class="comment">// 获得资源管理器操作接口实例 RM1</span></span><br><span class="line">   Connection conn1 = DriverManager.getConnection(<span class="string">&quot;jdbc:mysql://localhost:33060/d1&quot;</span>, <span class="string">&quot;root&quot;</span>, <span class="string">&quot;pass&quot;</span>);</span><br><span class="line">   XAConnection xaConn1 = <span class="keyword">new</span> MysqlXAConnection((JdbcConnection)conn1, logXaCommands);</span><br><span class="line">   XAResource rm1 = xaConn1.getXAResource();</span><br><span class="line"></span><br><span class="line">   <span class="comment">// 获得资源管理器操作接口实例 RM2</span></span><br><span class="line">   Connection conn2 = DriverManager.getConnection(<span class="string">&quot;jdbc:mysql://localhost:33060/d2&quot;</span>, <span class="string">&quot;root&quot;</span>, <span class="string">&quot;pass&quot;</span>);</span><br><span class="line">   XAConnection xaConn2 = <span class="keyword">new</span> MysqlXAConnection((JdbcConnection)conn2, logXaCommands);</span><br><span class="line">   XAResource rm2 = xaConn2.getXAResource();</span><br><span class="line">   <span class="comment">// AP请求TM执行一个分布式事务，TM生成全局事务id</span></span><br><span class="line">   <span class="keyword">byte</span>[] gtrid = <span class="string">&quot;g12345&quot;</span>.getBytes();</span><br><span class="line">   <span class="keyword">int</span> formatId = <span class="number">1</span>;</span><br><span class="line">   <span class="keyword">try</span> &#123;</span><br><span class="line">       <span class="comment">// ==============分别执行RM1和RM2上的事务分支====================</span></span><br><span class="line">       <span class="comment">// TM生成rm1上的事务分支id</span></span><br><span class="line">       <span class="keyword">byte</span>[] bqual1 = <span class="string">&quot;b00001&quot;</span>.getBytes();</span><br><span class="line">       Xid xid1 = <span class="keyword">new</span> MysqlXid(gtrid, bqual1, formatId);</span><br><span class="line">       <span class="comment">// 执行rm1上的事务分支 One of TMNOFLAGS, TMJOIN, or TMRESUME.</span></span><br><span class="line">       rm1.start(xid1, XAResource.TMNOFLAGS);</span><br><span class="line">       <span class="comment">// 业务1：插入user表</span></span><br><span class="line">       PreparedStatement ps1 = conn1.prepareStatement(<span class="string">&quot;insert into t1 values (10,&#x27;ab&#x27;)&quot;</span>);</span><br><span class="line">       ps1.execute();</span><br><span class="line">       rm1.end(xid1, XAResource.TMSUCCESS);</span><br><span class="line"></span><br><span class="line">       <span class="comment">// TM生成rm2上的事务分支id</span></span><br><span class="line">       <span class="keyword">byte</span>[] bqual2 = <span class="string">&quot;b00002&quot;</span>.getBytes();</span><br><span class="line">       Xid xid2 = <span class="keyword">new</span> MysqlXid(gtrid, bqual2, formatId);</span><br><span class="line">       <span class="comment">// 执行rm2上的事务分支</span></span><br><span class="line">       rm2.start(xid2, XAResource.TMNOFLAGS);</span><br><span class="line">       <span class="comment">// 业务2：插入user_msg表</span></span><br><span class="line">       PreparedStatement ps2 = conn2.prepareStatement(<span class="string">&quot;insert into t2 values (20,&#x27;cd&#x27;)&quot;</span>);</span><br><span class="line">       ps2.execute();</span><br><span class="line">       rm2.end(xid2, XAResource.TMSUCCESS);</span><br><span class="line"></span><br><span class="line">       <span class="comment">// ===================两阶段提交================================</span></span><br><span class="line">       <span class="comment">// phase1：询问所有的RM 准备提交事务分支</span></span><br><span class="line">       <span class="keyword">int</span> rm1Prepare = rm1.prepare(xid1);</span><br><span class="line">       <span class="keyword">int</span> rm2Prepare = rm2.prepare(xid2);</span><br><span class="line">       <span class="comment">// phase2：提交所有事务分支</span></span><br><span class="line">       <span class="keyword">boolean</span> onePhase = <span class="keyword">false</span>;</span><br><span class="line">       <span class="comment">//TM判断有2个事务分支，所以不能优化为一阶段提交</span></span><br><span class="line">       <span class="keyword">if</span> (rm1Prepare == XAResource.XA_OK &amp;&amp; rm2Prepare == XAResource.XA_OK) &#123;</span><br><span class="line">           <span class="comment">//所有事务分支都prepare成功，提交所有事务分支</span></span><br><span class="line">           rm1.commit(xid1, onePhase);</span><br><span class="line">           rm2.commit(xid2, onePhase);</span><br><span class="line">       &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">           <span class="comment">//如果有事务分支没有成功，则回滚</span></span><br><span class="line">           rm1.rollback(xid1);</span><br><span class="line">           rm1.rollback(xid2);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125; <span class="keyword">catch</span> (XAException e) &#123;</span><br><span class="line">       <span class="comment">// 如果出现异常，也要进行回滚</span></span><br><span class="line">       e.printStackTrace();</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="事务落在同一个MySQL"><a href="#事务落在同一个MySQL" class="headerlink" title="事务落在同一个MySQL"></a>事务落在同一个MySQL</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">+---------------+------+----------------+-----------+-------------+----------------------------------------------+</span><br><span class="line">| Log_name      | Pos  | Event_type     | Server_id | End_log_pos | Info                                         |</span><br><span class="line">+---------------+------+----------------+-----------+-------------+----------------------------------------------+</span><br><span class="line">| binlog.000001 |    4 | Format_desc    |         1 |         125 | Server ver: 8.0.20, Binlog ver: 4            |</span><br><span class="line">| binlog.000001 |  125 | Previous_gtids |         1 |         156 |                                              |</span><br><span class="line">| binlog.000001 |  156 | Anonymous_Gtid |         1 |         235 | SET @@SESSION.GTID_NEXT= &#x27;ANONYMOUS&#x27;         |</span><br><span class="line">| binlog.000001 |  235 | Query          |         1 |         345 | XA START X&#x27;673132333435&#x27;,X&#x27;623030303031&#x27;,1   |</span><br><span class="line">| binlog.000001 |  345 | Table_map      |         1 |         399 | table_id: 94 (d1.t1)                         |</span><br><span class="line">| binlog.000001 |  399 | Write_rows     |         1 |         442 | table_id: 94 flags: STMT_END_F               |</span><br><span class="line">| binlog.000001 |  442 | Query          |         1 |         550 | XA END X&#x27;673132333435&#x27;,X&#x27;623030303031&#x27;,1     |</span><br><span class="line">| binlog.000001 |  550 | XA_prepare     |         1 |         598 | XA PREPARE X&#x27;673132333435&#x27;,X&#x27;623030303031&#x27;,1 |</span><br><span class="line">| binlog.000001 |  598 | Anonymous_Gtid |         1 |         677 | SET @@SESSION.GTID_NEXT= &#x27;ANONYMOUS&#x27;         |</span><br><span class="line">| binlog.000001 |  677 | Query          |         1 |         787 | XA START X&#x27;673132333435&#x27;,X&#x27;623030303032&#x27;,1   |</span><br><span class="line">| binlog.000001 |  787 | Table_map      |         1 |         841 | table_id: 96 (d2.t2)                         |</span><br><span class="line">| binlog.000001 |  841 | Write_rows     |         1 |         884 | table_id: 96 flags: STMT_END_F               |</span><br><span class="line">| binlog.000001 |  884 | Query          |         1 |         992 | XA END X&#x27;673132333435&#x27;,X&#x27;623030303032&#x27;,1     |</span><br><span class="line">| binlog.000001 |  992 | XA_prepare     |         1 |        1040 | XA PREPARE X&#x27;673132333435&#x27;,X&#x27;623030303032&#x27;,1 |</span><br><span class="line">| binlog.000001 | 1040 | Anonymous_Gtid |         1 |        1117 | SET @@SESSION.GTID_NEXT= &#x27;ANONYMOUS&#x27;         |</span><br><span class="line">| binlog.000001 | 1117 | Query          |         1 |        1228 | XA COMMIT X&#x27;673132333435&#x27;,X&#x27;623030303031&#x27;,1  |</span><br><span class="line">| binlog.000001 | 1228 | Anonymous_Gtid |         1 |        1305 | SET @@SESSION.GTID_NEXT= &#x27;ANONYMOUS&#x27;         |</span><br><span class="line">| binlog.000001 | 1305 | Query          |         1 |        1416 | XA COMMIT X&#x27;673132333435&#x27;,X&#x27;623030303032&#x27;,1  |</span><br><span class="line">+---------------+------+----------------+-----------+-------------+----------------------------------------------+</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://youuwd.github.io/images/xa.png"></p>
+<h2 id="事务落在2个不同MySQL"><a href="#事务落在2个不同MySQL" class="headerlink" title="事务落在2个不同MySQL"></a>事务落在2个不同MySQL</h2><h3 id="MySQL-1"><a href="#MySQL-1" class="headerlink" title="MySQL 1"></a>MySQL 1</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">+---------------+-----+----------------+-----------+-------------+----------------------------------------------+</span><br><span class="line">| Log_name      | Pos | Event_type     | Server_id | End_log_pos | Info                                         |</span><br><span class="line">+---------------+-----+----------------+-----------+-------------+----------------------------------------------+</span><br><span class="line">| binlog.000001 |   4 | Format_desc    |         1 |         125 | Server ver: 8.0.20, Binlog ver: 4            |</span><br><span class="line">| binlog.000001 | 125 | Previous_gtids |         1 |         156 |                                              |</span><br><span class="line">| binlog.000001 | 156 | Anonymous_Gtid |         1 |         235 | SET @@SESSION.GTID_NEXT= &#x27;ANONYMOUS&#x27;         |</span><br><span class="line">| binlog.000001 | 235 | Query          |         1 |         345 | XA START X&#x27;673132333435&#x27;,X&#x27;623030303031&#x27;,1   |</span><br><span class="line">| binlog.000001 | 345 | Table_map      |         1 |         399 | table_id: 101 (d1.t1)                        |</span><br><span class="line">| binlog.000001 | 399 | Write_rows     |         1 |         442 | table_id: 101 flags: STMT_END_F              |</span><br><span class="line">| binlog.000001 | 442 | Query          |         1 |         550 | XA END X&#x27;673132333435&#x27;,X&#x27;623030303031&#x27;,1     |</span><br><span class="line">| binlog.000001 | 550 | XA_prepare     |         1 |         598 | XA PREPARE X&#x27;673132333435&#x27;,X&#x27;623030303031&#x27;,1 |</span><br><span class="line">| binlog.000001 | 598 | Anonymous_Gtid |         1 |         675 | SET @@SESSION.GTID_NEXT= &#x27;ANONYMOUS&#x27;         |</span><br><span class="line">| binlog.000001 | 675 | Query          |         1 |         786 | XA COMMIT X&#x27;673132333435&#x27;,X&#x27;623030303031&#x27;,1  |</span><br><span class="line">+---------------+-----+----------------+-----------+-------------+----------------------------------------------+</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="MySQL-2"><a href="#MySQL-2" class="headerlink" title="MySQL 2"></a>MySQL 2</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">+---------------+-----+----------------+-----------+-------------+----------------------------------------------+</span><br><span class="line">| Log_name      | Pos | Event_type     | Server_id | End_log_pos | Info                                         |</span><br><span class="line">+---------------+-----+----------------+-----------+-------------+----------------------------------------------+</span><br><span class="line">| binlog.000001 |   4 | Format_desc    |         1 |         125 | Server ver: 8.0.20, Binlog ver: 4            |</span><br><span class="line">| binlog.000001 | 125 | Previous_gtids |         1 |         156 |                                              |</span><br><span class="line">| binlog.000001 | 156 | Anonymous_Gtid |         1 |         235 | SET @@SESSION.GTID_NEXT= &#x27;ANONYMOUS&#x27;         |</span><br><span class="line">| binlog.000001 | 235 | Query          |         1 |         345 | XA START X&#x27;673132333435&#x27;,X&#x27;623030303032&#x27;,1   |</span><br><span class="line">| binlog.000001 | 345 | Table_map      |         1 |         399 | table_id: 106 (d2.t2)                        |</span><br><span class="line">| binlog.000001 | 399 | Write_rows     |         1 |         442 | table_id: 106 flags: STMT_END_F              |</span><br><span class="line">| binlog.000001 | 442 | Query          |         1 |         550 | XA END X&#x27;673132333435&#x27;,X&#x27;623030303032&#x27;,1     |</span><br><span class="line">| binlog.000001 | 550 | XA_prepare     |         1 |         598 | XA PREPARE X&#x27;673132333435&#x27;,X&#x27;623030303032&#x27;,1 |</span><br><span class="line">| binlog.000001 | 598 | Anonymous_Gtid |         1 |         675 | SET @@SESSION.GTID_NEXT= &#x27;ANONYMOUS&#x27;         |</span><br><span class="line">| binlog.000001 | 675 | Query          |         1 |         786 | XA COMMIT X&#x27;673132333435&#x27;,X&#x27;623030303032&#x27;,1  |</span><br><span class="line">+---------------+-----+----------------+-----------+-------------+----------------------------------------------+</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h4 id=""><a href="#" class="headerlink" title=""></a></h4>
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql-binlog-xa/" rel="tag">mysql binlog xa</a></li></ul>
+
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/07/06/ClassLoader/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          ClassLoader
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/06/02/binlog-protocol/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">binlog-protocol</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E8%90%BD%E5%9C%A8%E5%90%8C%E4%B8%80%E4%B8%AAMySQL"><span class="nav-number">1.</span> <span class="nav-text">事务落在同一个MySQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E8%90%BD%E5%9C%A82%E4%B8%AA%E4%B8%8D%E5%90%8CMySQL"><span class="nav-number">2.</span> <span class="nav-text">事务落在2个不同MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL-1"><span class="nav-number">2.1.</span> <span class="nav-text">MySQL 1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL-2"><span class="nav-number">2.2.</span> <span class="nav-text">MySQL 2</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.2.1.</span> <span class="nav-text"></span></a></li></ol></li></ol></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    <footer id="footer" class="site-footer">
+  
+
+  <div class="clearfix container">
+      <div class="site-info">
+	      &copy; 2021 YouN All Rights Reserved.
+        
+            <span id="busuanzi_container_site_uv">
+              本站访客数<span id="busuanzi_value_site_uv"></span>人次  
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+            </span>
+          
+      </div>
+      <div class="site-credit">
+        Theme by <a href="https://github.com/iTimeTraveler/hexo-theme-hipaper" target="_blank">hipaper</a>
+      </div>
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+
+
+    <!-- headerblur min height -->
+    
+    
+</script>
+    
+<div style="display: none;">
+  <script src="https://s11.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+</div>
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/bootstrap.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>

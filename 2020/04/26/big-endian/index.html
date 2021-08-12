@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>big_endian | YouN</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="Endian 字节序 网络通信" />
+  
+  
+  
+  
+  <meta name="description" content="Big Endian and Little EndianA load word or store word instruction uses only one memory address. The lowest address of the four bytes is used for the address of a block of four contiguous bytes. How is">
+<meta property="og:type" content="article">
+<meta property="og:title" content="big_endian">
+<meta property="og:url" content="http://yoursite.com/2020/04/26/big-endian/index.html">
+<meta property="og:site_name" content="YouN">
+<meta property="og:description" content="Big Endian and Little EndianA load word or store word instruction uses only one memory address. The lowest address of the four bytes is used for the address of a block of four contiguous bytes. How is">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://chortle.ccsu.edu/AssemblyTutorial/Chapter-15/bigLittleEndian.gif">
+<meta property="og:image" content="http://img.blog.csdn.net/20150501200116979">
+<meta property="article:published_time" content="2020-04-26T03:00:36.000Z">
+<meta property="article:modified_time" content="2021-08-11T06:44:13.686Z">
+<meta property="article:author" content="Timmy">
+<meta property="article:tag" content="Endian 字节序 网络通信">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chortle.ccsu.edu/AssemblyTutorial/Chapter-15/bigLittleEndian.gif">
+  
+    <link rel="alternate" href="/atom.xml" title="YouN" type="application/atom+xml">
+  
+  <link rel="icon" href="/css/images/favicon.ico">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+    
+  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+
+  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Oswald%3A300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+<script src="/js/jquery-3.1.1.min.js"></script>
+
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+  <link rel="stylesheet" href="/css/fashion.css" >
+  <link rel="stylesheet" href="/css/glyphs.css" >
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+
+
+<header id="allheader" class="site-header" role="banner" 
+   >
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" rel="home" >
+                <img style="margin-bottom: 6px;"  width="126px" height="60px" alt="Hike News" src=" /css/images/youu.jpg">
+              </a>
+            
+          </h1>
+          
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+
+            <div class="clearfix sf-menu">
+              <ul id="main-nav" class="menu sf-js-enabled sf-arrows"  style="touch-action: pan-y;">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663" linktext="/"> <a class="" href="/">首页</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663" linktext="archives"> <a class="" href="/archives">归档</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663" linktext="categories"> <a class="" href="/categories">分类</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663" linktext="tags"> <a class="" href="/tags">标签</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663" linktext="about"> <a class="" href="/about">关于</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-big-endian" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      big_endian
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2020/04/26/big-endian/" class="article-date">
+	  <time datetime="2020-04-26T03:00:36.000Z" itemprop="datePublished">四月 26, 2020</time>
+	</a>
+
+       
+      
+	<span id="busuanzi_container_page_pv">
+	  本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+	</span>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Big-Endian-and-Little-Endian"><a href="#Big-Endian-and-Little-Endian" class="headerlink" title="Big Endian and Little Endian"></a>Big Endian and Little Endian</h1><p>A load word or store word instruction uses only one memory address. The <strong>lowest address</strong> of the four bytes is used for the address of a block of four contiguous bytes.</p>
+<p>How is a 32-bit pattern held in the four bytes of memory? There are 32 bits in the four bytes and 32 bits in the pattern, but a choice has to be made about which byte of memory gets what part of the pattern. There are two ways that computers commonly do this:</p>
+<blockquote>
+<p><strong>Big Endian Byte Order:</strong> The <strong>most significant</strong> byte (the “big end”) of the data is placed at the byte with the lowest address. The rest of the data is placed in order in the next three bytes in memory.</p>
+<p><strong>Little Endian Byte Order:</strong> The <strong>least significant</strong> byte (the “little end”) of the data is placed at the byte with the lowest address. The rest of the data is placed in order in the next three bytes in memory.</p>
+</blockquote>
+<p><img src="https://chortle.ccsu.edu/AssemblyTutorial/Chapter-15/bigLittleEndian.gif"></p>
+<p>In these definitions, the data, a 32-bit pattern, is regarded as a 32-bit unsigned integer. The “most significant” byte is the one for the largest powers of two: 231, …, 224. The “least significant” byte is the one for the smallest powers of two: 27, …, 20.</p>
+<p>For example, say that the 32-bit pattern 0x12345678 is stored at address 0x00400000. The most significant byte is 0x12; the least significant is 0x78.</p>
+<p>Within a <strong>byte</strong> the order of the bits is the same for all computers (no matter how the bytes themselves are arranged).</p>
+<h3 id="一、字节序"><a href="#一、字节序" class="headerlink" title="一、字节序"></a>一、字节序</h3><p><strong>字节序</strong>，也就是字节的顺序，指的是多字节的数据在内存中的存放顺序。</p>
+<p>在几乎所有的机器上，多字节对象都被存储为连续的字节序列。例如：如果C/C++中的一个<code>int</code>型变量 a 的起始地址是<code>&amp;a = 0x100</code>，那么 a 的四个字节将被存储在存储器的<code>0x100</code>, <code>0x101</code>, <code>0x102</code>, <code>0x103</code>位置。</p>
+<p>根据整数 a 在连续的 4 byte 内存中的存储顺序，字节序被分为<strong>大端序（Big Endian）</strong> 与 <strong>小端序（Little Endian）</strong>两类。 然后就牵涉出两大CPU派系：</p>
+<ul>
+<li>Motorola 6800，PowerPC 970，SPARC（除V9外）等处理器采用 Big Endian方式存储数据；</li>
+<li>x86系列，VAX，PDP-11等处理器采用Little Endian方式存储数据。</li>
+</ul>
+<p>另外，还有一些处理器像ARM, DEC Alpha的字节序是可配置的。</p>
+<h3 id="二、大端与小端"><a href="#二、大端与小端" class="headerlink" title="二、大端与小端"></a>二、大端与小端</h3><p>那么，到底什么是大端，什么是小端？ 如下图：</p>
+<p><a target="_blank" rel="noopener" href="http://img.blog.csdn.net/20150501200116979"><img src="http://img.blog.csdn.net/20150501200116979" alt="img"></a></p>
+<p>我相信上面的图已经够直观了。也就是说：</p>
+<ul>
+<li>Big Endian 是指低地址端 存放 高位字节。</li>
+<li>Little Endian 是指低地址端 存放 低位字节。</li>
+</ul>
+<p><strong>各自的优势：</strong></p>
+<ol>
+<li>Big Endian：符号位的判定固定为第一个字节，容易判断正负。</li>
+<li>Little Endian：长度为1，2，4字节的数，排列方式都是一样的，数据类型转换非常方便。</li>
+</ol>
+<h3 id="三、为什么要注意字节序"><a href="#三、为什么要注意字节序" class="headerlink" title="三、为什么要注意字节序"></a>三、为什么要注意字节序</h3><p>如果你写的程序只在单机环境下面运行，并且不和别人的程序打交道，那么你完全可以忽略字节序的存在。</p>
+<p>但是，如果你的程序要跟别人的程序产生交互呢？ 比如，当一个 C/C++ 的程序要与一个 Java 程序交互时：</p>
+<ul>
+<li>C/C++语言编写的程序里数据存储顺序是跟编译平台所在的CPU相关的，而现在比较普遍的 x86 处理器是 Little Endian</li>
+<li>JAVA编写的程序则唯一采用 Big Endian 方式来存储数据</li>
+</ul>
+<p>试想，如果你的C/C++程序将变量 <code>a = 0x12345678</code> 的首地址传递给了Java程序，由于Java采取 Big Endian 方式存储数据，很自然的它会将你的数据翻译为 <code>0x78563412</code>。显然，问题就出现了！！！</p>
+<p>另外，网络传输一般采用 Big Endian，也被称之为<strong>网络字节序</strong>，或<strong>网络序</strong>。当两台采用不同字节序的主机通信时，在发送数据之前都必须经过字节序的转换成为网络字节序后再进行传输。</p>
+<h3 id="四、判断机器的字节序"><a href="#四、判断机器的字节序" class="headerlink" title="四、判断机器的字节序"></a>四、判断机器的字节序</h3><p>由于 C/C++ 存储数据时的字节序依赖所在平台的CPU，所以我们可以通过C/C++程序判定机器的端序：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">void Endianness()</span><br><span class="line">&#123;</span><br><span class="line">	int a = 0x12345678;</span><br><span class="line">	if( *((char*)&amp;a) == 0x12)</span><br><span class="line">		cout &lt;&lt; &quot;Big Endian&quot; &lt;&lt; endl;</span><br><span class="line">	else</span><br><span class="line">		cout &lt;&lt; &quot;Little Endian&quot; &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="五、网络序和主机序"><a href="#五、网络序和主机序" class="headerlink" title="五、网络序和主机序"></a>五、网络序和主机序</h3><p><strong>网络字节序</strong>：TCP/IP各层协议将字节序定义为 Big Endian，因此TCP/IP协议中使用的字节序是大端序。</p>
+<p><strong>主机字节序</strong>：整数在内存中存储的顺序，现在 Little Endian 比较普遍。（不同的 CPU 有不同的字节序）</p>
+<p>在进行网络通信时 通常需要调用相应的函数进行主机序和网络序的转换。Berkeley socket API 定义了一组转换函数，用于16和32bit整数在网络序和本机字节序之间的转换。htonl，htons用于本机序转换到网络序；ntohl，ntohs用于网络序转换到本机序。</p>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Endian-%E5%AD%97%E8%8A%82%E5%BA%8F-%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/" rel="tag">Endian 字节序 网络通信</a></li></ul>
+
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/06/01/docker-mysql/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          docker_mysql
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/04/24/iptables/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">iptables</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Big-Endian-and-Little-Endian"><span class="nav-number">1.</span> <span class="nav-text">Big Endian and Little Endian</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%AD%97%E8%8A%82%E5%BA%8F"><span class="nav-number">1.0.1.</span> <span class="nav-text">一、字节序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%A4%A7%E7%AB%AF%E4%B8%8E%E5%B0%8F%E7%AB%AF"><span class="nav-number">1.0.2.</span> <span class="nav-text">二、大端与小端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%B3%A8%E6%84%8F%E5%AD%97%E8%8A%82%E5%BA%8F"><span class="nav-number">1.0.3.</span> <span class="nav-text">三、为什么要注意字节序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%88%A4%E6%96%AD%E6%9C%BA%E5%99%A8%E7%9A%84%E5%AD%97%E8%8A%82%E5%BA%8F"><span class="nav-number">1.0.4.</span> <span class="nav-text">四、判断机器的字节序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E7%BD%91%E7%BB%9C%E5%BA%8F%E5%92%8C%E4%B8%BB%E6%9C%BA%E5%BA%8F"><span class="nav-number">1.0.5.</span> <span class="nav-text">五、网络序和主机序</span></a></li></ol></li></ol></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    <footer id="footer" class="site-footer">
+  
+
+  <div class="clearfix container">
+      <div class="site-info">
+	      &copy; 2021 YouN All Rights Reserved.
+        
+            <span id="busuanzi_container_site_uv">
+              本站访客数<span id="busuanzi_value_site_uv"></span>人次  
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+            </span>
+          
+      </div>
+      <div class="site-credit">
+        Theme by <a href="https://github.com/iTimeTraveler/hexo-theme-hipaper" target="_blank">hipaper</a>
+      </div>
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+
+
+    <!-- headerblur min height -->
+    
+    
+</script>
+    
+<div style="display: none;">
+  <script src="https://s11.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+</div>
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/bootstrap.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>

@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>MySQL-architecture | YouN</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="MySQL architecture" />
+  
+  
+  
+  
+  <meta name="description" content="MySQL is Relational Database Management system which is free Open Source Software Under  GNU License. It  is also supported by Oracle Company .It is fast , scalable, easy to use database management Sy">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL-architecture">
+<meta property="og:url" content="http://yoursite.com/2021/06/30/mysql-architecture/index.html">
+<meta property="og:site_name" content="YouN">
+<meta property="og:description" content="MySQL is Relational Database Management system which is free Open Source Software Under  GNU License. It  is also supported by Oracle Company .It is fast , scalable, easy to use database management Sy">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://media.geeksforgeeks.org/wp-content/uploads/20210211183907/MySQLArchi.png">
+<meta property="article:published_time" content="2021-06-30T02:25:18.000Z">
+<meta property="article:modified_time" content="2021-08-11T06:44:13.683Z">
+<meta property="article:author" content="Timmy">
+<meta property="article:tag" content="MySQL architecture">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://media.geeksforgeeks.org/wp-content/uploads/20210211183907/MySQLArchi.png">
+  
+    <link rel="alternate" href="/atom.xml" title="YouN" type="application/atom+xml">
+  
+  <link rel="icon" href="/css/images/favicon.ico">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+    
+  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+
+  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Oswald%3A300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+<script src="/js/jquery-3.1.1.min.js"></script>
+
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+  <link rel="stylesheet" href="/css/fashion.css" >
+  <link rel="stylesheet" href="/css/glyphs.css" >
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+
+
+<header id="allheader" class="site-header" role="banner" 
+   >
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" rel="home" >
+                <img style="margin-bottom: 6px;"  width="126px" height="60px" alt="Hike News" src=" /css/images/youu.jpg">
+              </a>
+            
+          </h1>
+          
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+
+            <div class="clearfix sf-menu">
+              <ul id="main-nav" class="menu sf-js-enabled sf-arrows"  style="touch-action: pan-y;">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663" linktext="/"> <a class="" href="/">首页</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663" linktext="archives"> <a class="" href="/archives">归档</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663" linktext="categories"> <a class="" href="/categories">分类</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663" linktext="tags"> <a class="" href="/tags">标签</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663" linktext="about"> <a class="" href="/about">关于</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+      </div>
+  </div>
+</header>
+
+
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-mysql-architecture" style="width: 66%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      MySQL-architecture
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2021/06/30/mysql-architecture/" class="article-date">
+	  <time datetime="2021-06-30T02:25:18.000Z" itemprop="datePublished">六月 30, 2021</time>
+	</a>
+
+       
+      
+	<span id="busuanzi_container_page_pv">
+	  本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+	</span>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>MySQL</strong> is Relational Database Management system which is free Open Source Software Under  GNU License. It  is also supported by Oracle Company .It is fast , scalable, easy to use database management System. MySQL support many operation system like Windows, Linux, MacOS etc.</p>
+<p>MySQL is Structured Query Language which is used to manipulate, manage  and retrieve data with the help of various Queries.</p>
+<p>MySQL is developed and supported by  MySQL AB which is a Swedish  Company and written in C and C++ programming language. It was developed by Michael Widenius and David Hughes .It is often  used to say that MySQL is named after the name of daughter of the co-founder  MIchael  Widenius whose name is ‘My’.</p>
+<p><strong>Architecture of MySQL:</strong></p>
+<p>Architecture of MySQL describes the relation among the different components of MySQL  System.  MySQL follow Client-Server Architecture. It is designed so that end user that is Clients can access the resources from Computer that is server using various networking services. The Architecture of MySQL contain following major layer’s :</p>
+<ul>
+<li>Client</li>
+<li>Server</li>
+<li>Storage Layer</li>
+</ul>
+<p><img src="https://media.geeksforgeeks.org/wp-content/uploads/20210211183907/MySQLArchi.png" alt="architecture"></p>
+<p><strong>Client Layer:</strong><br>This layer is the topmost layer in the above diagram. The Client give request instructions to the Serve with the help of Client Layer .The Client make request through  Command Prompt or through GUI  screen by using valid MySQL commands and expressions .If the Expressions and commands are valid then the output is obtained on the screen.  Some important services of client layer are :</p>
+<ul>
+<li>Connection Handling.</li>
+<li>Authentication.</li>
+<li>Security.</li>
+</ul>
+<p><strong>Connection Handling :</strong><br>When a client send request to the server and server will accept the request and the client is connected .. When Client is connected to the server at that time , a client get it’s own thread for it’s connection. With the help of this thread all the queries from client side is executed.</p>
+<p><strong>Authentication :</strong><br>Authentication is performed on the server side when client is connected to the MySQL server. Authentication is done with the help of username and password.</p>
+<p><strong>Security :</strong><br>After authentication when  the client gets connected successfully to MySQL server, the server will check  that a particular client has the privileges to issue in certain queries against MySQL server.</p>
+<p><strong>Server Layer:</strong><br>The second layer of MySQL architecture is responsible for all logical functionalities of relational database management system of MySQL. This Layer of MySQL System is also known as <em><strong>“Brain of MySQL Architecture”</strong></em>. When the Client give request instructions to the Server and the server gives the output as soon as the the instruction is matched.  The various sub components of MySQL server are:</p>
+<ul>
+<li><strong>Thread Handling –</strong><br>When a client send request to the server and server will accept the request and the client is connected .. When Client is connected to the server at that time , a client get it’s own thread for it’s connection. This thread is provided by  thread handling  of Server Layer. Also the queries of  client side  which is executed by the thread  is also handled by Thread Handling module.</li>
+<li><strong>Parser –</strong><br>A Parser is a type of Software Component that  built a data structure(parse tree)  of  given input . Before parsing lexical  analysis is done i.e. input is broken into number of tokens . After the  data is available in the smaller elements parser perform Syntax Analysis , Semantics  Analysis after that parse tree is generated as output.</li>
+<li><strong>Optimizer –</strong><br>As soon as the parsing is done ,  various types of optimization techniques are applied at Optimizer Block. These techniques may include rewriting the query, order of scanning of tables and choosing the right indexes to use etc.</li>
+<li><strong>Query Cache –</strong><br>Query Cache stores the complete result set for inputted query statement. Eve before Parsing , MySQL Server consult query cache . When client write a query , if the query written by client is identical in the cache then the server simply skip the parsing, optimization and even execution, it just simply display the output from the cache.</li>
+<li><strong>Buffer and Cache –</strong><br>Cache and will buffer store the previous query or problem asked by user. When User write a query then it firstly goes to Query Cache then query cache will check that the same query or problem is available in the cache. If the same query is available then it will provide output without interfering Parser, Optimizer.</li>
+<li><strong>Table Metadata Cache –</strong><br>The metadata cache is a reserved area of memory used for tracking information on databases, indexes, or objects. The greater the number of open databases, indexes, or objects, the larger the metadata cache size.</li>
+<li><strong>Key Cache –</strong><br>A  key cache  is an index entry that uniquely identifies an object in a cache. By default, edge servers cache content based on the entire resource path and a query string.</li>
+</ul>
+<p><strong>Storage Layer:</strong><br>This Storage Engine Layer of MySQL Architecture make it’s unique and most preferable for developer’s . Due to this Layer MySQL layer is counted as the mostly used RDBMS and is widely used. In MySQL server , for different situations and requirement’s different types of storage engines are used which are InnoDB ,MyISAM , NDB ,Memory etc. These storage engines are used as pluggable  storage enginer where tables created by user are plugged with them.</p>
+<p><strong>Features of MySQL:</strong></p>
+<ol>
+<li>MySQL language is easy to use as compared to other programming language like C,C++, Java etc. By learning with some basic command we can work , create and interact with Database.</li>
+<li>MySQL consist of  Data Security layer  which protect the data from violator. Also, passwords are encrypted in MySQL.</li>
+<li>MySQL follow Client-Server Architecture where  Client request Commands and instructions and Server will produce output  as soon as the instruction is matched.</li>
+<li>MySQL is free to use under Community version of it. So we can download it from MySQL website and work on it freely.</li>
+<li>MySQL use multithreading which makes it Scalable. It can handle any amount of data .The default file size limit is 4 GB, but we can increase it according to our need.</li>
+<li>MySQL is considered as one of the fast database. It’s fastness is determined on the basis of large number of benchmark tests.</li>
+<li>MySQL is very flexible because  it supports large number of embedded systems.</li>
+<li>MySQL is compatible to run on various operating system such as Windows, MacOS , Linux etc.</li>
+<li>MySQL allow transactions to be rolled back, commit and cash recovery.</li>
+<li>It has low memory leakage problem which increase its memory efficiency.</li>
+<li>MySQL version 8.0 provide dual password support , one is a current password and another is secondary password. With the help of this we can create new password.</li>
+<li>MySQL provide feature of Partitioning  which improve performance of large databases.</li>
+</ol>
+<p>Attention reader! Don’t stop learning now. Get hold of all the important CS Theory concepts for SDE interviews with the <a target="_blank" rel="noopener" href="https://practice.geeksforgeeks.org/courses/SDE-theory?vC=1"><strong>CS Theory Course</strong></a> at a student-friendly price and become industry ready.</p>
+<p><strong>Reference</strong></p>
+<p><a target="_blank" rel="noopener" href="https://www.geeksforgeeks.org/architecture-of-MySQL/">architecture-of-MySQL</a></p>
+
+      
+    </div>
+    <footer class="entry-meta entry-footer">
+      
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL-architecture/" rel="tag">MySQL architecture</a></li></ul>
+
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/08/11/zsh/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          安装zsh及主题(Mac)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/01/12/docker-net/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">docker_net</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+      <ol class="nav">无</ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    <footer id="footer" class="site-footer">
+  
+
+  <div class="clearfix container">
+      <div class="site-info">
+	      &copy; 2021 YouN All Rights Reserved.
+        
+            <span id="busuanzi_container_site_uv">
+              本站访客数<span id="busuanzi_value_site_uv"></span>人次  
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+            </span>
+          
+      </div>
+      <div class="site-credit">
+        Theme by <a href="https://github.com/iTimeTraveler/hexo-theme-hipaper" target="_blank">hipaper</a>
+      </div>
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+
+
+    <!-- headerblur min height -->
+    
+    
+</script>
+    
+<div style="display: none;">
+  <script src="https://s11.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+</div>
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/bootstrap.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script>
+</body>
+</html>
