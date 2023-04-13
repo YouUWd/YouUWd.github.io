@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>proxy-in-mybatis | YouN</title>
+  <title>proxy-in-mybatis | YouN 科技温度</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   <meta name="keywords" content="Mybatis Proxy" />
@@ -14,19 +14,19 @@
   <meta name="description" content="代理在Mybatis里面的使用 主要位于org.apache.ibatis.binding包里面  12MapperRegistry  负责注册获取MapperMapperProxy  Mapper接口的代理   代理实现 org.apache.ibatis.session.defaults.DefaultSqlSession#getMapper   12345SqlSession.getMapp">
 <meta property="og:type" content="article">
 <meta property="og:title" content="proxy-in-mybatis">
-<meta property="og:url" content="http://youuwd.github.io/2019/10/11/proxy-in-mybatis/index.html">
-<meta property="og:site_name" content="YouN">
+<meta property="og:url" content="http://this4u.cn/2019/10/11/proxy-in-mybatis/index.html">
+<meta property="og:site_name" content="YouN 科技温度">
 <meta property="og:description" content="代理在Mybatis里面的使用 主要位于org.apache.ibatis.binding包里面  12MapperRegistry  负责注册获取MapperMapperProxy  Mapper接口的代理   代理实现 org.apache.ibatis.session.defaults.DefaultSqlSession#getMapper   12345SqlSession.getMapp">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://youuwd.github.io/images/mybatis-proxy.png">
+<meta property="og:image" content="http://this4u.cn/images/image-20210816113311699.png">
 <meta property="article:published_time" content="2019-10-11T11:02:19.000Z">
-<meta property="article:modified_time" content="2021-08-16T11:37:30.491Z">
+<meta property="article:modified_time" content="2023-04-13T05:58:10.715Z">
 <meta property="article:author" content="Timmy">
 <meta property="article:tag" content="Mybatis Proxy">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://youuwd.github.io/images/mybatis-proxy.png">
+<meta name="twitter:image" content="http://this4u.cn/images/image-20210816113311699.png">
   
-    <link rel="alternate" href="/atom.xml" title="YouN" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="YouN 科技温度" type="application/atom+xml">
   
   <link rel="icon" href="/css/images/favicon.ico">
   
@@ -57,7 +57,7 @@
   <link rel="stylesheet" href="/css/fashion.css" >
   <link rel="stylesheet" href="/css/glyphs.css" >
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 
 
@@ -65,17 +65,39 @@
 
 
   
+  
+  <div class="site-header-image">
+    <img id="originBg" width="100%" alt="Hike News" src="">
+  </div>
+
+  <div id="header-blur" class="site-header-image blur" style="position: absolute; top:0; height: 207px; min-height: 207px; min-width: 100%;">
+    <img id="blurBg" width="100%" style="top: 96%" alt="Hike News" src="">
+  </div>
+
+  <script>
+        var imgUrls = "css/images/pose01.jpg,https://source.unsplash.com/collection/954550/1920x1080,https://source.unsplash.com/collection/954550/1920x1081".split(",");
+        var random = Math.floor((Math.random() * imgUrls.length ));
+        if (imgUrls[random].startsWith('http') || imgUrls[random].indexOf('://') >= 0) {
+          document.getElementById("originBg").src=imgUrls[random];
+          document.getElementById("blurBg").src=imgUrls[random];
+        } else {
+          document.getElementById("originBg").src='/' + imgUrls[random];
+          document.getElementById("blurBg").src='/' + imgUrls[random];
+        }
+    </script>
+
+
 
 
 <header id="allheader" class="site-header" role="banner" 
-   >
+   style="width: 100%; position: absolute; top:0; background: rgba(255,255,255,.8);"  >
   <div class="clearfix container">
       <div class="site-branding">
 
           <h1 class="site-title">
             
               <a href="/" rel="home" >
-                <img style="margin-bottom: 6px;"  width="126px" height="60px" alt="Hike News" src=" /css/images/youu.jpg">
+                <img style="margin-bottom: 2px;"  width="126px" height="60px" alt="Hike News" src=" /css/images/youu.jpg">
               </a>
             
           </h1>
@@ -150,7 +172,7 @@
 </blockquote>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MapperRegistry  负责注册获取Mapper</span><br><span class="line">MapperProxy  Mapper接口的代理</span><br></pre></td></tr></table></figure>
 
-<p><img src="/images/mybatis-proxy.png" alt="binding"></p>
+<p><img src="/images/image-20210816113311699.png" alt="binding"></p>
 <h2 id="代理实现"><a href="#代理实现" class="headerlink" title="代理实现"></a>代理实现</h2><blockquote>
 <p>org.apache.ibatis.session.defaults.DefaultSqlSession#getMapper  </p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SqlSession.getMapper</span><br><span class="line">  ---&gt; Configuration.getMapper </span><br><span class="line">      ---&gt; MapperRegistry.getMapper </span><br><span class="line">        ---&gt; mapperProxyFactory.newInstance </span><br><span class="line">          ---&gt; Proxy.newProxyInstance</span><br></pre></td></tr></table></figure>
@@ -159,7 +181,7 @@
 <blockquote>
 <p>command 来自 mapper的注解或者xml配置</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// org.apache.ibatis.binding.MapperMethod#execute</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">execute</span><span class="params">(SqlSession sqlSession, Object[] args)</span> </span>&#123;</span><br><span class="line">    Object result;</span><br><span class="line">    <span class="keyword">switch</span> (command.getType()) &#123;</span><br><span class="line">      <span class="keyword">case</span> INSERT: &#123;</span><br><span class="line">        Object param = method.convertArgsToSqlCommandParam(args);</span><br><span class="line">        result = rowCountResult(sqlSession.insert(command.getName(), param));</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">case</span> UPDATE: &#123;</span><br><span class="line">        Object param = method.convertArgsToSqlCommandParam(args);</span><br><span class="line">        result = rowCountResult(sqlSession.update(command.getName(), param));</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">case</span> DELETE: &#123;</span><br><span class="line">        Object param = method.convertArgsToSqlCommandParam(args);</span><br><span class="line">        result = rowCountResult(sqlSession.delete(command.getName(), param));</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">case</span> SELECT:</span><br><span class="line">        <span class="keyword">if</span> (method.returnsVoid() &amp;&amp; method.hasResultHandler()) &#123;</span><br><span class="line">          executeWithResultHandler(sqlSession, args);</span><br><span class="line">          result = <span class="keyword">null</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (method.returnsMany()) &#123;</span><br><span class="line">          result = executeForMany(sqlSession, args);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (method.returnsMap()) &#123;</span><br><span class="line">          result = executeForMap(sqlSession, args);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (method.returnsCursor()) &#123;</span><br><span class="line">          result = executeForCursor(sqlSession, args);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          Object param = method.convertArgsToSqlCommandParam(args);</span><br><span class="line">          result = sqlSession.selectOne(command.getName(), param);</span><br><span class="line">          <span class="keyword">if</span> (method.returnsOptional()</span><br><span class="line">              &amp;&amp; (result == <span class="keyword">null</span> || !method.getReturnType().equals(result.getClass()))) &#123;</span><br><span class="line">            result = Optional.ofNullable(result);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> FLUSH:</span><br><span class="line">        result = sqlSession.flushStatements();</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">default</span>:</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> BindingException(<span class="string">&quot;Unknown execution method for: &quot;</span> + command.getName());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (result == <span class="keyword">null</span> &amp;&amp; method.getReturnType().isPrimitive() &amp;&amp; !method.returnsVoid()) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> BindingException(<span class="string">&quot;Mapper method &#x27;&quot;</span> + command.getName()</span><br><span class="line">          + <span class="string">&quot; attempted to return null from a method with a primitive return type (&quot;</span> + method.getReturnType() + <span class="string">&quot;).&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// org.apache.ibatis.binding.MapperMethod#execute</span></span><br><span class="line"><span class="keyword">public</span> Object <span class="title function_">execute</span><span class="params">(SqlSession sqlSession, Object[] args)</span> &#123;</span><br><span class="line">    Object result;</span><br><span class="line">    <span class="keyword">switch</span> (command.getType()) &#123;</span><br><span class="line">      <span class="keyword">case</span> INSERT: &#123;</span><br><span class="line">        <span class="type">Object</span> <span class="variable">param</span> <span class="operator">=</span> method.convertArgsToSqlCommandParam(args);</span><br><span class="line">        result = rowCountResult(sqlSession.insert(command.getName(), param));</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">case</span> UPDATE: &#123;</span><br><span class="line">        <span class="type">Object</span> <span class="variable">param</span> <span class="operator">=</span> method.convertArgsToSqlCommandParam(args);</span><br><span class="line">        result = rowCountResult(sqlSession.update(command.getName(), param));</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">case</span> DELETE: &#123;</span><br><span class="line">        <span class="type">Object</span> <span class="variable">param</span> <span class="operator">=</span> method.convertArgsToSqlCommandParam(args);</span><br><span class="line">        result = rowCountResult(sqlSession.delete(command.getName(), param));</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">case</span> SELECT:</span><br><span class="line">        <span class="keyword">if</span> (method.returnsVoid() &amp;&amp; method.hasResultHandler()) &#123;</span><br><span class="line">          executeWithResultHandler(sqlSession, args);</span><br><span class="line">          result = <span class="literal">null</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (method.returnsMany()) &#123;</span><br><span class="line">          result = executeForMany(sqlSession, args);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (method.returnsMap()) &#123;</span><br><span class="line">          result = executeForMap(sqlSession, args);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (method.returnsCursor()) &#123;</span><br><span class="line">          result = executeForCursor(sqlSession, args);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="type">Object</span> <span class="variable">param</span> <span class="operator">=</span> method.convertArgsToSqlCommandParam(args);</span><br><span class="line">          result = sqlSession.selectOne(command.getName(), param);</span><br><span class="line">          <span class="keyword">if</span> (method.returnsOptional()</span><br><span class="line">              &amp;&amp; (result == <span class="literal">null</span> || !method.getReturnType().equals(result.getClass()))) &#123;</span><br><span class="line">            result = Optional.ofNullable(result);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> FLUSH:</span><br><span class="line">        result = sqlSession.flushStatements();</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">default</span>:</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">BindingException</span>(<span class="string">&quot;Unknown execution method for: &quot;</span> + command.getName());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (result == <span class="literal">null</span> &amp;&amp; method.getReturnType().isPrimitive() &amp;&amp; !method.returnsVoid()) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">BindingException</span>(<span class="string">&quot;Mapper method &#x27;&quot;</span> + command.getName()</span><br><span class="line">          + <span class="string">&quot; attempted to return null from a method with a primitive return type (&quot;</span> + method.getReturnType() + <span class="string">&quot;).&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 
 
       
@@ -259,7 +281,8 @@
 
   <div class="clearfix container">
       <div class="site-info">
-	      &copy; 2022 YouN All Rights Reserved.
+		鄂ICP备2023005434号-1  	
+	        Copyright &copy; 2023 YouN 科技温度 All Rights Reserved.
         
             <span id="busuanzi_container_site_uv">
               本站访客数<span id="busuanzi_value_site_uv"></span>人次  
@@ -286,8 +309,12 @@
 
     <!-- headerblur min height -->
     
+      var headerblur = document.getElementById("header-blur");
+      headerblur.style.minHeight = window.getComputedStyle(document.getElementById("allheader"), null).height;
+    
     
 </script>
+
     
 <div style="display: none;">
   <script src="https://s11.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
@@ -355,7 +382,7 @@
 
 
 
-	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
 	</script>
 
 

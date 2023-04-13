@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>tcpdump及tshark 使用 | YouN</title>
+  <title>tcpdump及tshark 使用 | YouN 科技温度</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   <meta name="keywords" content="LinuxNetTcpdump" />
@@ -14,19 +14,19 @@
   <meta name="description" content="译自 A tcpdump Tutorial and Primer with Examples 有所增删，可以通过 man tcpdump 获取更详细信息 只要和网络沾边，都可以使用tcpdump来排查问题。 1  基础1.1 常用选项 -i any ：监听任意网络设备 -i eth0 ：监听eth0 -D ：列出所有可监听设备 -n ：不要把IP解析为主机名（显示IP） -nn ：不要把IP和PO">
 <meta property="og:type" content="article">
 <meta property="og:title" content="tcpdump及tshark 使用">
-<meta property="og:url" content="http://youuwd.github.io/2019/09/23/tcpdump/index.html">
-<meta property="og:site_name" content="YouN">
+<meta property="og:url" content="http://this4u.cn/2019/09/23/tcpdump/index.html">
+<meta property="og:site_name" content="YouN 科技温度">
 <meta property="og:description" content="译自 A tcpdump Tutorial and Primer with Examples 有所增删，可以通过 man tcpdump 获取更详细信息 只要和网络沾边，都可以使用tcpdump来排查问题。 1  基础1.1 常用选项 -i any ：监听任意网络设备 -i eth0 ：监听eth0 -D ：列出所有可监听设备 -n ：不要把IP解析为主机名（显示IP） -nn ：不要把IP和PO">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-09-23T11:19:37.000Z">
-<meta property="article:modified_time" content="2021-08-12T02:30:08.650Z">
+<meta property="article:modified_time" content="2023-04-13T05:58:10.715Z">
 <meta property="article:author" content="Timmy">
 <meta property="article:tag" content="Linux">
 <meta property="article:tag" content="Net">
 <meta property="article:tag" content="Tcpdump">
 <meta name="twitter:card" content="summary">
   
-    <link rel="alternate" href="/atom.xml" title="YouN" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="YouN 科技温度" type="application/atom+xml">
   
   <link rel="icon" href="/css/images/favicon.ico">
   
@@ -57,7 +57,7 @@
   <link rel="stylesheet" href="/css/fashion.css" >
   <link rel="stylesheet" href="/css/glyphs.css" >
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 
 
@@ -65,17 +65,39 @@
 
 
   
+  
+  <div class="site-header-image">
+    <img id="originBg" width="100%" alt="Hike News" src="">
+  </div>
+
+  <div id="header-blur" class="site-header-image blur" style="position: absolute; top:0; height: 207px; min-height: 207px; min-width: 100%;">
+    <img id="blurBg" width="100%" style="top: 96%" alt="Hike News" src="">
+  </div>
+
+  <script>
+        var imgUrls = "css/images/pose01.jpg,https://source.unsplash.com/collection/954550/1920x1080,https://source.unsplash.com/collection/954550/1920x1081".split(",");
+        var random = Math.floor((Math.random() * imgUrls.length ));
+        if (imgUrls[random].startsWith('http') || imgUrls[random].indexOf('://') >= 0) {
+          document.getElementById("originBg").src=imgUrls[random];
+          document.getElementById("blurBg").src=imgUrls[random];
+        } else {
+          document.getElementById("originBg").src='/' + imgUrls[random];
+          document.getElementById("blurBg").src='/' + imgUrls[random];
+        }
+    </script>
+
+
 
 
 <header id="allheader" class="site-header" role="banner" 
-   >
+   style="width: 100%; position: absolute; top:0; background: rgba(255,255,255,.8);"  >
   <div class="clearfix container">
       <div class="site-branding">
 
           <h1 class="site-title">
             
               <a href="/" rel="home" >
-                <img style="margin-bottom: 6px;"  width="126px" height="60px" alt="Hike News" src=" /css/images/youu.jpg">
+                <img style="margin-bottom: 2px;"  width="126px" height="60px" alt="Hike News" src=" /css/images/youu.jpg">
               </a>
             
           </h1>
@@ -264,9 +286,9 @@
     </a>
   
   
-    <a href="/2019/09/18/git-commit-rewrite/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/09/18/git-unchange/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">Git Commit Rewrite</div>
+      <div class="article-nav-title">Git 不再跟踪及提交某个文件</div>
     </a>
   
 </nav>
@@ -307,7 +329,8 @@
 
   <div class="clearfix container">
       <div class="site-info">
-	      &copy; 2022 YouN All Rights Reserved.
+		鄂ICP备2023005434号-1  	
+	        Copyright &copy; 2023 YouN 科技温度 All Rights Reserved.
         
             <span id="busuanzi_container_site_uv">
               本站访客数<span id="busuanzi_value_site_uv"></span>人次  
@@ -334,8 +357,12 @@
 
     <!-- headerblur min height -->
     
+      var headerblur = document.getElementById("header-blur");
+      headerblur.style.minHeight = window.getComputedStyle(document.getElementById("allheader"), null).height;
+    
     
 </script>
+
     
 <div style="display: none;">
   <script src="https://s11.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
@@ -403,7 +430,7 @@
 
 
 
-	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
 	</script>
 
 

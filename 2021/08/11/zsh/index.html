@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>安装zsh及主题(Mac) | YouN</title>
+  <title>安装zsh及主题(Mac) | YouN 科技温度</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   <meta name="keywords" content="zsh oh-my-zsh" />
@@ -14,20 +14,20 @@
   <meta name="description" content="Install Homebrew1&#x2F;bin&#x2F;bash -c &quot;$(curl -fsSL https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;Homebrew&#x2F;install&#x2F;HEAD&#x2F;install.sh)&quot;    Install Oh My Zsh1sh -c &quot;$(curl -fsSL https:&#x2F;&#x2F;raw.githubusercontent.c">
 <meta property="og:type" content="article">
 <meta property="og:title" content="安装zsh及主题(Mac)">
-<meta property="og:url" content="http://youuwd.github.io/2021/08/11/zsh/index.html">
-<meta property="og:site_name" content="YouN">
+<meta property="og:url" content="http://this4u.cn/2021/08/11/zsh/index.html">
+<meta property="og:site_name" content="YouN 科技温度">
 <meta property="og:description" content="Install Homebrew1&#x2F;bin&#x2F;bash -c &quot;$(curl -fsSL https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;Homebrew&#x2F;install&#x2F;HEAD&#x2F;install.sh)&quot;    Install Oh My Zsh1sh -c &quot;$(curl -fsSL https:&#x2F;&#x2F;raw.githubusercontent.c">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/353b1531f225d06e3719ba6d10a14a3e.png">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/141e68d3b4b5bb5b5865317bab23c9fc.png">
 <meta property="article:published_time" content="2021-08-11T05:55:06.000Z">
-<meta property="article:modified_time" content="2021-08-12T02:30:08.650Z">
+<meta property="article:modified_time" content="2023-04-13T05:58:10.715Z">
 <meta property="article:author" content="Timmy">
 <meta property="article:tag" content="zsh oh-my-zsh">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://img-blog.csdnimg.cn/img_convert/353b1531f225d06e3719ba6d10a14a3e.png">
   
-    <link rel="alternate" href="/atom.xml" title="YouN" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="YouN 科技温度" type="application/atom+xml">
   
   <link rel="icon" href="/css/images/favicon.ico">
   
@@ -58,7 +58,7 @@
   <link rel="stylesheet" href="/css/fashion.css" >
   <link rel="stylesheet" href="/css/glyphs.css" >
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 
 
@@ -66,17 +66,39 @@
 
 
   
+  
+  <div class="site-header-image">
+    <img id="originBg" width="100%" alt="Hike News" src="">
+  </div>
+
+  <div id="header-blur" class="site-header-image blur" style="position: absolute; top:0; height: 207px; min-height: 207px; min-width: 100%;">
+    <img id="blurBg" width="100%" style="top: 96%" alt="Hike News" src="">
+  </div>
+
+  <script>
+        var imgUrls = "css/images/pose01.jpg,https://source.unsplash.com/collection/954550/1920x1080,https://source.unsplash.com/collection/954550/1920x1081".split(",");
+        var random = Math.floor((Math.random() * imgUrls.length ));
+        if (imgUrls[random].startsWith('http') || imgUrls[random].indexOf('://') >= 0) {
+          document.getElementById("originBg").src=imgUrls[random];
+          document.getElementById("blurBg").src=imgUrls[random];
+        } else {
+          document.getElementById("originBg").src='/' + imgUrls[random];
+          document.getElementById("blurBg").src='/' + imgUrls[random];
+        }
+    </script>
+
+
 
 
 <header id="allheader" class="site-header" role="banner" 
-   >
+   style="width: 100%; position: absolute; top:0; background: rgba(255,255,255,.8);"  >
   <div class="clearfix container">
       <div class="site-branding">
 
           <h1 class="site-title">
             
               <a href="/" rel="home" >
-                <img style="margin-bottom: 6px;"  width="126px" height="60px" alt="Hike News" src=" /css/images/youu.jpg">
+                <img style="margin-bottom: 2px;"  width="126px" height="60px" alt="Hike News" src=" /css/images/youu.jpg">
               </a>
             
           </h1>
@@ -151,7 +173,7 @@
 
 
 
-<h2 id="Install-Powerline-fonts"><a href="#Install-Powerline-fonts" class="headerlink" title="Install Powerline fonts"></a>Install Powerline fonts</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">clone</span></span></span><br><span class="line">git clone https://github.com/powerline/fonts.git --depth=1</span><br><span class="line"><span class="meta">#</span><span class="bash"> install</span></span><br><span class="line">cd fonts</span><br><span class="line">./install.sh</span><br><span class="line"><span class="meta">#</span><span class="bash"> clean-up a bit</span></span><br><span class="line">cd ..</span><br><span class="line">rm -rf fonts</span><br></pre></td></tr></table></figure>
+<h2 id="Install-Powerline-fonts"><a href="#Install-Powerline-fonts" class="headerlink" title="Install Powerline fonts"></a>Install Powerline fonts</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">clone</span></span></span><br><span class="line">git clone https://github.com/powerline/fonts.git --depth=1</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">install</span></span><br><span class="line">cd fonts</span><br><span class="line">./install.sh</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">clean-up a bit</span></span><br><span class="line">cd ..</span><br><span class="line">rm -rf fonts</span><br></pre></td></tr></table></figure>
 
 <h2 id="配置-zsh-支持图标"><a href="#配置-zsh-支持图标" class="headerlink" title="配置 zsh 支持图标"></a>配置 zsh 支持图标</h2><p><img src="https://img-blog.csdnimg.cn/img_convert/353b1531f225d06e3719ba6d10a14a3e.png" alt="配色设置"><br><img src="https://img-blog.csdnimg.cn/img_convert/141e68d3b4b5bb5b5865317bab23c9fc.png" alt="箭头图标等支持Powerline字体"></p>
 
@@ -249,7 +271,8 @@
 
   <div class="clearfix container">
       <div class="site-info">
-	      &copy; 2022 YouN All Rights Reserved.
+		鄂ICP备2023005434号-1  	
+	        Copyright &copy; 2023 YouN 科技温度 All Rights Reserved.
         
             <span id="busuanzi_container_site_uv">
               本站访客数<span id="busuanzi_value_site_uv"></span>人次  
@@ -276,8 +299,12 @@
 
     <!-- headerblur min height -->
     
+      var headerblur = document.getElementById("header-blur");
+      headerblur.style.minHeight = window.getComputedStyle(document.getElementById("allheader"), null).height;
+    
     
 </script>
+
     
 <div style="display: none;">
   <script src="https://s11.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
@@ -345,7 +372,7 @@
 
 
 
-	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
 	</script>
 
 

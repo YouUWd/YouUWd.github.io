@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>big_endian | YouN</title>
+  <title>big_endian | YouN 科技温度</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   <meta name="keywords" content="Endian 字节序 网络通信" />
@@ -14,20 +14,20 @@
   <meta name="description" content="Big Endian and Little EndianA load word or store word instruction uses only one memory address. The lowest address of the four bytes is used for the address of a block of four contiguous bytes. How is">
 <meta property="og:type" content="article">
 <meta property="og:title" content="big_endian">
-<meta property="og:url" content="http://youuwd.github.io/2020/04/26/big-endian/index.html">
-<meta property="og:site_name" content="YouN">
+<meta property="og:url" content="http://this4u.cn/2020/04/26/big-endian/index.html">
+<meta property="og:site_name" content="YouN 科技温度">
 <meta property="og:description" content="Big Endian and Little EndianA load word or store word instruction uses only one memory address. The lowest address of the four bytes is used for the address of a block of four contiguous bytes. How is">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://chortle.ccsu.edu/AssemblyTutorial/Chapter-15/bigLittleEndian.gif">
 <meta property="og:image" content="http://img.blog.csdn.net/20150501200116979">
 <meta property="article:published_time" content="2020-04-26T03:00:36.000Z">
-<meta property="article:modified_time" content="2021-08-12T02:30:08.648Z">
+<meta property="article:modified_time" content="2023-04-13T05:58:10.684Z">
 <meta property="article:author" content="Timmy">
 <meta property="article:tag" content="Endian 字节序 网络通信">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://chortle.ccsu.edu/AssemblyTutorial/Chapter-15/bigLittleEndian.gif">
   
-    <link rel="alternate" href="/atom.xml" title="YouN" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="YouN 科技温度" type="application/atom+xml">
   
   <link rel="icon" href="/css/images/favicon.ico">
   
@@ -58,7 +58,7 @@
   <link rel="stylesheet" href="/css/fashion.css" >
   <link rel="stylesheet" href="/css/glyphs.css" >
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+<meta name="generator" content="Hexo 6.3.0"></head>
 
 
 
@@ -66,17 +66,39 @@
 
 
   
+  
+  <div class="site-header-image">
+    <img id="originBg" width="100%" alt="Hike News" src="">
+  </div>
+
+  <div id="header-blur" class="site-header-image blur" style="position: absolute; top:0; height: 207px; min-height: 207px; min-width: 100%;">
+    <img id="blurBg" width="100%" style="top: 96%" alt="Hike News" src="">
+  </div>
+
+  <script>
+        var imgUrls = "css/images/pose01.jpg,https://source.unsplash.com/collection/954550/1920x1080,https://source.unsplash.com/collection/954550/1920x1081".split(",");
+        var random = Math.floor((Math.random() * imgUrls.length ));
+        if (imgUrls[random].startsWith('http') || imgUrls[random].indexOf('://') >= 0) {
+          document.getElementById("originBg").src=imgUrls[random];
+          document.getElementById("blurBg").src=imgUrls[random];
+        } else {
+          document.getElementById("originBg").src='/' + imgUrls[random];
+          document.getElementById("blurBg").src='/' + imgUrls[random];
+        }
+    </script>
+
+
 
 
 <header id="allheader" class="site-header" role="banner" 
-   >
+   style="width: 100%; position: absolute; top:0; background: rgba(255,255,255,.8);"  >
   <div class="clearfix container">
       <div class="site-branding">
 
           <h1 class="site-title">
             
               <a href="/" rel="home" >
-                <img style="margin-bottom: 6px;"  width="126px" height="60px" alt="Hike News" src=" /css/images/youu.jpg">
+                <img style="margin-bottom: 2px;"  width="126px" height="60px" alt="Hike News" src=" /css/images/youu.jpg">
               </a>
             
           </h1>
@@ -154,7 +176,7 @@
 <p>For example, say that the 32-bit pattern 0x12345678 is stored at address 0x00400000. The most significant byte is 0x12; the least significant is 0x78.</p>
 <p>Within a <strong>byte</strong> the order of the bits is the same for all computers (no matter how the bytes themselves are arranged).</p>
 <h3 id="一、字节序"><a href="#一、字节序" class="headerlink" title="一、字节序"></a>一、字节序</h3><p><strong>字节序</strong>，也就是字节的顺序，指的是多字节的数据在内存中的存放顺序。</p>
-<p>在几乎所有的机器上，多字节对象都被存储为连续的字节序列。例如：如果C/C++中的一个<code>int</code>型变量 a 的起始地址是<code>&amp;a = 0x100</code>，那么 a 的四个字节将被存储在存储器的<code>0x100</code>, <code>0x101</code>, <code>0x102</code>, <code>0x103</code>位置。</p>
+<p>在几乎所有的机器上，多字节对象都被存储为连续的字节序列。例如：如果C&#x2F;C++中的一个<code>int</code>型变量 a 的起始地址是<code>&amp;a = 0x100</code>，那么 a 的四个字节将被存储在存储器的<code>0x100</code>, <code>0x101</code>, <code>0x102</code>, <code>0x103</code>位置。</p>
 <p>根据整数 a 在连续的 4 byte 内存中的存储顺序，字节序被分为<strong>大端序（Big Endian）</strong> 与 <strong>小端序（Little Endian）</strong>两类。 然后就牵涉出两大CPU派系：</p>
 <ul>
 <li>Motorola 6800，PowerPC 970，SPARC（除V9外）等处理器采用 Big Endian方式存储数据；</li>
@@ -174,21 +196,21 @@
 <li>Little Endian：长度为1，2，4字节的数，排列方式都是一样的，数据类型转换非常方便。</li>
 </ol>
 <h3 id="三、为什么要注意字节序"><a href="#三、为什么要注意字节序" class="headerlink" title="三、为什么要注意字节序"></a>三、为什么要注意字节序</h3><p>如果你写的程序只在单机环境下面运行，并且不和别人的程序打交道，那么你完全可以忽略字节序的存在。</p>
-<p>但是，如果你的程序要跟别人的程序产生交互呢？ 比如，当一个 C/C++ 的程序要与一个 Java 程序交互时：</p>
+<p>但是，如果你的程序要跟别人的程序产生交互呢？ 比如，当一个 C&#x2F;C++ 的程序要与一个 Java 程序交互时：</p>
 <ul>
-<li>C/C++语言编写的程序里数据存储顺序是跟编译平台所在的CPU相关的，而现在比较普遍的 x86 处理器是 Little Endian</li>
+<li>C&#x2F;C++语言编写的程序里数据存储顺序是跟编译平台所在的CPU相关的，而现在比较普遍的 x86 处理器是 Little Endian</li>
 <li>JAVA编写的程序则唯一采用 Big Endian 方式来存储数据</li>
 </ul>
-<p>试想，如果你的C/C++程序将变量 <code>a = 0x12345678</code> 的首地址传递给了Java程序，由于Java采取 Big Endian 方式存储数据，很自然的它会将你的数据翻译为 <code>0x78563412</code>。显然，问题就出现了！！！</p>
+<p>试想，如果你的C&#x2F;C++程序将变量 <code>a = 0x12345678</code> 的首地址传递给了Java程序，由于Java采取 Big Endian 方式存储数据，很自然的它会将你的数据翻译为 <code>0x78563412</code>。显然，问题就出现了！！！</p>
 <p>另外，网络传输一般采用 Big Endian，也被称之为<strong>网络字节序</strong>，或<strong>网络序</strong>。当两台采用不同字节序的主机通信时，在发送数据之前都必须经过字节序的转换成为网络字节序后再进行传输。</p>
-<h3 id="四、判断机器的字节序"><a href="#四、判断机器的字节序" class="headerlink" title="四、判断机器的字节序"></a>四、判断机器的字节序</h3><p>由于 C/C++ 存储数据时的字节序依赖所在平台的CPU，所以我们可以通过C/C++程序判定机器的端序：</p>
+<h3 id="四、判断机器的字节序"><a href="#四、判断机器的字节序" class="headerlink" title="四、判断机器的字节序"></a>四、判断机器的字节序</h3><p>由于 C&#x2F;C++ 存储数据时的字节序依赖所在平台的CPU，所以我们可以通过C&#x2F;C++程序判定机器的端序：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">void Endianness()</span><br><span class="line">&#123;</span><br><span class="line">	int a = 0x12345678;</span><br><span class="line">	if( *((char*)&amp;a) == 0x12)</span><br><span class="line">		cout &lt;&lt; &quot;Big Endian&quot; &lt;&lt; endl;</span><br><span class="line">	else</span><br><span class="line">		cout &lt;&lt; &quot;Little Endian&quot; &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
 
 
-<h3 id="五、网络序和主机序"><a href="#五、网络序和主机序" class="headerlink" title="五、网络序和主机序"></a>五、网络序和主机序</h3><p><strong>网络字节序</strong>：TCP/IP各层协议将字节序定义为 Big Endian，因此TCP/IP协议中使用的字节序是大端序。</p>
+<h3 id="五、网络序和主机序"><a href="#五、网络序和主机序" class="headerlink" title="五、网络序和主机序"></a>五、网络序和主机序</h3><p><strong>网络字节序</strong>：TCP&#x2F;IP各层协议将字节序定义为 Big Endian，因此TCP&#x2F;IP协议中使用的字节序是大端序。</p>
 <p><strong>主机字节序</strong>：整数在内存中存储的顺序，现在 Little Endian 比较普遍。（不同的 CPU 有不同的字节序）</p>
 <p>在进行网络通信时 通常需要调用相应的函数进行主机序和网络序的转换。Berkeley socket API 定义了一组转换函数，用于16和32bit整数在网络序和本机字节序之间的转换。htonl，htons用于本机序转换到网络序；ntohl，ntohs用于网络序转换到本机序。</p>
 
@@ -286,7 +308,8 @@
 
   <div class="clearfix container">
       <div class="site-info">
-	      &copy; 2022 YouN All Rights Reserved.
+		鄂ICP备2023005434号-1  	
+	        Copyright &copy; 2023 YouN 科技温度 All Rights Reserved.
         
             <span id="busuanzi_container_site_uv">
               本站访客数<span id="busuanzi_value_site_uv"></span>人次  
@@ -313,8 +336,12 @@
 
     <!-- headerblur min height -->
     
+      var headerblur = document.getElementById("header-blur");
+      headerblur.style.minHeight = window.getComputedStyle(document.getElementById("allheader"), null).height;
+    
     
 </script>
+
     
 <div style="display: none;">
   <script src="https://s11.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
@@ -382,7 +409,7 @@
 
 
 
-	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
 	</script>
 
 
